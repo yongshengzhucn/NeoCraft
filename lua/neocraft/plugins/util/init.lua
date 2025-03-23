@@ -19,5 +19,5 @@ return {
   { "nvim-lua/plenary.nvim", lazy = true },
 
   -- import util
-  import = "neocraft.plugins.util",
+  {import = "neocraft.plugins.util",}
 }

@@ -222,5 +222,5 @@ return {
   },
 
   -- import editor
-  import = "neocraft.plugins.editor",
+  {import = "neocraft.plugins.editor",}
 }

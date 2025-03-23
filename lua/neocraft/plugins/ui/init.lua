@@ -177,5 +177,5 @@ return {
   },
 
   -- import ui
-  import = "neocraft.plugins.ui",
+  {import = "neocraft.plugins.ui",}
 }
