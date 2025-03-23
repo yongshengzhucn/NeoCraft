@@ -148,5 +148,5 @@ return {
 	},
 
 	-- import coding
-	{import = "neocraft.plugins.coding",}
+	{ import = "neocraft.plugins.coding" },
 }
