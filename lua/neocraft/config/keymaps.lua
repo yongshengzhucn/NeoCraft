@@ -26,16 +26,18 @@ map("v", "<A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", {
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "<Space>b", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
-map("n", "bd", function() Snacks.bufdelete() end, { desc = "Delete buffer" })
+map("n", "bd", function()
+	Snacks.bufdelete()
+end, { desc = "Delete buffer" })
 map("n", "bo", function()
-  Snacks.bufdelete.other()
+	Snacks.bufdelete.other()
 end, { desc = "Delete Other Buffers" })
 
 -- Clear search and stop snippet on escape
 map({ "i", "n", "s" }, "<esc>", function()
-  vim.cmd("noh")
-  NeoCraft.cmp.actions.snippet_stop()
-  return "<esc>"
+	vim.cmd("noh")
+	NeoCraft.cmp.actions.snippet_stop()
+	return "<esc>"
 end, { expr = true, desc = "Escape and Clear hlsearch" })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
@@ -49,10 +51,10 @@ map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
 map(
-  "n",
-  "<leader>r",
-  "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-  { desc = "Redraw/Clear hlsearch/Diff Update" }
+	"n",
+	"<leader>r",
+	"<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+	{ desc = "Redraw/Clear hlsearch/Diff Update" }
 )
 
 -- better indenting
@@ -61,10 +63,10 @@ map("v", ">", ">gv")
 
 -- quickfix and diagnostics
 map("n", "<leader>xd", function()
-  vim.diagnostic.open_float(nil, {
-    focusable = false,
-    border = "rounded",
-  })
+	vim.diagnostic.open_float(nil, {
+		focusable = false,
+		border = "rounded",
+	})
 end, { desc = "Line Diagnostics" })
 
 -- windows
@@ -93,36 +95,36 @@ map("n", "td", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 -- lazygit
 
 if vim.fn.executable("lazygit") == 1 then
-  map("n", "<leader>gg", function()
-    Snacks.lazygit({ cwd = NeoCraft.root.git() })
-  end, { desc = "Lazygit (Root Dir)" })
-  map("n", "<leader>gG", function()
-    Snacks.lazygit()
-  end, { desc = "Lazygit (cwd)" })
-  map("n", "<leader>gf", function()
-    Snacks.picker.git_log_file()
-  end, { desc = "Git Current File History" })
-  map("n", "<leader>gl", function()
-    Snacks.picker.git_log({ cwd = NeoCraft.root.git() })
-  end, { desc = "Git Log" })
-  map("n", "<leader>gL", function()
-    Snacks.picker.git_log()
-  end, { desc = "Git Log (cwd)" })
+	map("n", "<leader>gg", function()
+		Snacks.lazygit({ cwd = NeoCraft.root.git() })
+	end, { desc = "Lazygit (Root Dir)" })
+	map("n", "<leader>gG", function()
+		Snacks.lazygit()
+	end, { desc = "Lazygit (cwd)" })
+	map("n", "<leader>gf", function()
+		Snacks.picker.git_log_file()
+	end, { desc = "Git Current File History" })
+	map("n", "<leader>gl", function()
+		Snacks.picker.git_log({ cwd = NeoCraft.root.git() })
+	end, { desc = "Git Log" })
+	map("n", "<leader>gL", function()
+		Snacks.picker.git_log()
+	end, { desc = "Git Log (cwd)" })
 end
 
 map("n", "<leader>gb", function()
-  Snacks.picker.git_log_line()
+	Snacks.picker.git_log_line()
 end, { desc = "Git Blame Line" })
 map({ "n", "x" }, "<leader>gB", function()
-  Snacks.gitbrowse()
+	Snacks.gitbrowse()
 end, { desc = "Git Browse (open)" })
 map({ "n", "x" }, "<leader>gY", function()
-  Snacks.gitbrowse({
-    open = function(url)
-      vim.fn.setreg("+", url)
-    end,
-    notify = false,
-  })
+	Snacks.gitbrowse({
+		open = function(url)
+			vim.fn.setreg("+", url)
+		end,
+		notify = false,
+	})
 end, { desc = "Git Browse (copy)" })
 
 -- lazy
@@ -132,19 +134,19 @@ map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- quit
-map("n", "<leader>Q", "<cmd>qa<cr>", { desc = "Quit All" })
+map("n", "<leader>q", "<cmd>qa<cr>", { desc = "Quit All" })
 
 -- Save
 map("n", "<space>w", "<cmd>update<cr>", { desc = "Save Current buffer" })
 
 -- Help
 map("n", "<space>h", function()
-  vim.fn.feedkeys(vim.api.nvim_replace_termcodes(":help ", true, false, true))
+	vim.fn.feedkeys(vim.api.nvim_replace_termcodes(":help ", true, false, true))
 end, { desc = "Help" })
 
 -- Lua cmdline
 map("n", "<space>l", function()
-  vim.fn.feedkeys(vim.api.nvim_replace_termcodes(":lua ", true, false, true))
+	vim.fn.feedkeys(vim.api.nvim_replace_termcodes(":lua ", true, false, true))
 end, { desc = "Lua cmdline" })
 
 -- manual formatting
@@ -152,7 +154,7 @@ map({ "n", "v" }, "<space>f", "<cmd>LazyFormat<cr>", { desc = "Format selection 
 
 -- browse url
 map("n", "<space>o", function()
-  NeoCraft.browse.open()
+	NeoCraft.browse.open()
 end, { desc = "Open url under cursor" })
 
 -- undo tree
@@ -160,7 +162,7 @@ map("n", "<space>u", "<cmd>Telescope undo<cr>", { desc = "Visual Undo tree" })
 
 -- toggle lsp inlay hints
 if vim.lsp.inlay_hint then
-  Snacks.toggle.inlay_hints():map("<leader>uh")
+	Snacks.toggle.inlay_hints():map("<leader>uh")
 end
 
 -- InspectTree
