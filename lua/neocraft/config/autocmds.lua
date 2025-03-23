@@ -1,165 +1,156 @@
 -- This file is automatically loaded by neocraft.config.init.
 
 local function augroup(name)
-  return vim.api.nvim_create_augroup("neocraft_" .. name, { clear = true })
+	return vim.api.nvim_create_augroup("neocraft_" .. name, { clear = true })
 end
 
 -- Check if we need to reload the file when it changed
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
-  group = augroup("checktime"),
-  callback = function()
-    if vim.o.buftype ~= "nofile" then
-      vim.cmd("checktime")
-    end
-  end,
+	group = augroup("checktime"),
+	callback = function()
+		if vim.o.buftype ~= "nofile" then
+			vim.cmd("checktime")
+		end
+	end,
 })
 
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
-  group = augroup("highlight_yank"),
-  callback = function()
-    (vim.hl or vim.highlight).on_yank()
-  end,
+	group = augroup("highlight_yank"),
+	callback = function()
+		(vim.hl or vim.highlight).on_yank()
+	end,
 })
 
 -- resize splits if window got resized
 vim.api.nvim_create_autocmd({ "VimResized" }, {
-  group = augroup("resize_splits"),
-  callback = function()
-    local current_tab = vim.fn.tabpagenr()
-    vim.cmd("tabdo wincmd =")
-    vim.cmd("tabnext " .. current_tab)
-  end,
+	group = augroup("resize_splits"),
+	callback = function()
+		local current_tab = vim.fn.tabpagenr()
+		vim.cmd("tabdo wincmd =")
+		vim.cmd("tabnext " .. current_tab)
+	end,
 })
 
 -- go to last loc when opening a buffer
 vim.api.nvim_create_autocmd("BufReadPost", {
-  group = augroup("last_loc"),
-  callback = function(event)
-    local exclude = { "gitcommit" }
-    local buf = event.buf
-    if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].neocraft_last_loc then
-      return
-    end
-    vim.b[buf].neocraft_last_loc = true
-    local mark = vim.api.nvim_buf_get_mark(buf, '"')
-    local lcount = vim.api.nvim_buf_line_count(buf)
-    if mark[1] > 0 and mark[1] <= lcount then
-      pcall(vim.api.nvim_win_set_cursor, 0, mark)
-    end
-  end,
+	group = augroup("last_loc"),
+	callback = function(event)
+		local exclude = { "gitcommit" }
+		local buf = event.buf
+		if vim.tbl_contains(exclude, vim.bo[buf].filetype) or vim.b[buf].neocraft_last_loc then
+			return
+		end
+		vim.b[buf].neocraft_last_loc = true
+		local mark = vim.api.nvim_buf_get_mark(buf, '"')
+		local lcount = vim.api.nvim_buf_line_count(buf)
+		if mark[1] > 0 and mark[1] <= lcount then
+			pcall(vim.api.nvim_win_set_cursor, 0, mark)
+		end
+	end,
 })
 
 -- close some filetypes with <q>
 vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("close_with_q"),
-  pattern = {
-    "PlenaryTestPopup",
-    "checkhealth",
-    "dbout",
-    "gitsigns-blame",
-    "grug-far",
-    "help",
-    "lspinfo",
-    "neotest-output",
-    "neotest-output-panel",
-    "neotest-summary",
-    "notify",
-    "qf",
-    "spectre_panel",
-    "startuptime",
-    "tsplayground",
-  },
-  callback = function(event)
-    vim.bo[event.buf].buflisted = false
-    vim.schedule(function()
-      vim.keymap.set("n", "q", function()
-        vim.cmd("close")
-        pcall(vim.api.nvim_buf_delete, event.buf, { force = true })
-      end, {
-        buffer = event.buf,
-        silent = true,
-        desc = "Quit buffer",
-      })
-    end)
-  end,
+	group = augroup("close_with_q"),
+	pattern = {
+		"PlenaryTestPopup",
+		"checkhealth",
+		"dbout",
+		"gitsigns-blame",
+		"grug-far",
+		"help",
+		"lspinfo",
+		"neotest-output",
+		"neotest-output-panel",
+		"neotest-summary",
+		"notify",
+		"qf",
+		"spectre_panel",
+		"startuptime",
+		"tsplayground",
+	},
+	callback = function(event)
+		vim.bo[event.buf].buflisted = false
+		vim.schedule(function()
+			vim.keymap.set("n", "q", function()
+				vim.cmd("close")
+				pcall(vim.api.nvim_buf_delete, event.buf, { force = true })
+			end, {
+				buffer = event.buf,
+				silent = true,
+				desc = "Quit buffer",
+			})
+		end)
+	end,
 })
 
 -- make it easier to close man-files when opened inline
 vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("man_unlisted"),
-  pattern = { "man" },
-  callback = function(event)
-    vim.bo[event.buf].buflisted = false
-  end,
+	group = augroup("man_unlisted"),
+	pattern = { "man" },
+	callback = function(event)
+		vim.bo[event.buf].buflisted = false
+	end,
 })
 
 -- wrap and check for spell in text filetypes
 vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("wrap_spell"),
-  pattern = { "text", "plaintex", "typst", "gitcommit", "markdown" },
-  callback = function()
-    vim.opt_local.wrap = true
-    vim.opt_local.spell = true
-  end,
+	group = augroup("wrap_spell"),
+	pattern = { "text", "plaintex", "typst", "gitcommit", "markdown" },
+	callback = function()
+		vim.opt_local.wrap = true
+		vim.opt_local.spell = true
+	end,
 })
 
 -- Fix conceallevel for json files
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  group = augroup("json_conceal"),
-  pattern = { "json", "jsonc", "json5" },
-  callback = function()
-    vim.opt_local.conceallevel = 0
-  end,
+	group = augroup("json_conceal"),
+	pattern = { "json", "jsonc", "json5" },
+	callback = function()
+		vim.opt_local.conceallevel = 0
+	end,
 })
 
 -- Auto create dir when saving a file, in case some intermediate directory does not exist
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-  group = augroup("auto_create_dir"),
-  callback = function(event)
-    if event.match:match("^%w%w+:[\\/][\\/]") then
-      return
-    end
-    local file = vim.uv.fs_realpath(event.match) or event.match
-    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
-  end,
+	group = augroup("auto_create_dir"),
+	callback = function(event)
+		if event.match:match("^%w%w+:[\\/][\\/]") then
+			return
+		end
+		local file = vim.uv.fs_realpath(event.match) or event.match
+		vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+	end,
 })
 
 --hl statusline
 vim.api.nvim_create_autocmd("ColorScheme", {
-  group = augroup("highlight_StatusLine"),
-  pattern = "*",
-  callback = function()
-    vim.api.nvim_set_hl(0, "StatusLine", { fg = "#fab387" })
-  end,
-})
-
--- hl FloatBorder
-vim.api.nvim_create_autocmd("ColorScheme", {
-  group = augroup("highlight_FloatBorder"),
-  pattern = "*",
-  callback = function()
-    vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#cba6f7" })
-  end,
+	group = augroup("highlight_StatusLine"),
+	pattern = "*",
+	callback = function()
+		vim.api.nvim_set_hl(0, "StatusLine", { fg = "#fab387" })
+	end,
 })
 
 -- hl TreesitterContext
 vim.api.nvim_create_autocmd("ColorScheme", {
-  group = augroup("highlight_TreeSitterContext"),
-  pattern = "*",
-  callback = function()
-    vim.api.nvim_set_hl(0, "TreesitterContextBottom", { bg = "#313244" })
-    vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#1e1e2e" })
-    vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { fg = "#6c7086", bg = "#1e1e2e" })
-    vim.api.nvim_set_hl(0, "TreesitterContextLineNumberBottom", { bg = "#1e1e2e" })
-  end,
+	group = augroup("highlight_TreeSitterContext"),
+	pattern = "*",
+	callback = function()
+		vim.api.nvim_set_hl(0, "TreesitterContextBottom", { bg = "#313244" })
+		vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#1e1e2e" })
+		vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { fg = "#6c7086", bg = "#1e1e2e" })
+		vim.api.nvim_set_hl(0, "TreesitterContextLineNumberBottom", { bg = "#1e1e2e" })
+	end,
 })
 
 -- CursorMoved url
 vim.api.nvim_create_autocmd({ "CursorMoved" }, {
-  group = augroup("highlight_Cursor_URL"),
-  callback = function()
-    NeoCraft.browse.hl_cursor()
-    vim.api.nvim_set_hl(0, "HighlightCursorUrl", { bg = nil, fg = "#f38ba8" })
-  end,
+	group = augroup("highlight_Cursor_URL"),
+	callback = function()
+		NeoCraft.browse.hl_cursor()
+		vim.api.nvim_set_hl(0, "HighlightCursorUrl", { bg = nil, fg = "#f38ba8" })
+	end,
 })
