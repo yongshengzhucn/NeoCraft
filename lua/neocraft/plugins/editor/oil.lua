@@ -1,4 +1,4 @@
-return {
+return {{
   "stevearc/oil.nvim",
   opts = {
     columns = {
@@ -8,4 +8,4 @@ return {
       show_hidden = true,
     },
   },
-}
+}}

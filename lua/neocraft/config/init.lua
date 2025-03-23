@@ -119,7 +119,7 @@ function M.load(name)
   vim.api.nvim_exec_autocmds("User", { pattern = pattern, modeline = false })
 end
 
----@type LazyVimOptions
+---@type NeoCraftOptions
 local options
 local lazy_clipboard
 

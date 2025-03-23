@@ -59,7 +59,6 @@ return {
         NeoCraft.error({
           "Don't set `plugin.config` for `conform.nvim`.\n",
           "This will break **NeoCraft** formatting.\n",
-          "Please refer to the docs at https://www.lazyvim.org/plugins/formatting",
         }, { title = "NeoCraft" })
       end
       ---@type conform.setupOpts
@@ -99,5 +98,5 @@ return {
   },
 
   -- import formatting
-  import = "neocraft.plugins.formatting",
+  -- import = "neocraft.plugins.formatting",
 }
