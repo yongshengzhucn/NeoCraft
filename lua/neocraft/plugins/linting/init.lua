@@ -98,5 +98,5 @@ return {
 	},
 
 	-- import linting
-	{ import = "neocraft.plugins.linting" },
+	-- { import = "neocraft.plugins.linting" },
 }
