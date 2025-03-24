@@ -43,7 +43,7 @@ return {
 				which_key = true,
 			},
 			custom_highlights = {
-				FloatBorder = { fg = "#cba6f7" },
+				FloatBorder = { fg = "#585b70" },
 			},
 		},
 		specs = {

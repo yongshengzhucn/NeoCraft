@@ -99,5 +99,5 @@ return {
 	},
 
 	-- import formatting
-	{ import = "neocraft.plugins.formatting" },
+	-- { import = "neocraft.plugins.formatting" },
 }
