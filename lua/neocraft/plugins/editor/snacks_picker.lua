@@ -155,7 +155,7 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		opts = function()
-			local Keys = require("lazyvim.plugins.lsp.keymaps").get()
+			local Keys = require("neocraft.plugins.lsp.keymaps").get()
       -- stylua: ignore
       vim.list_extend(Keys, {
         { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition", has = "definition" },
