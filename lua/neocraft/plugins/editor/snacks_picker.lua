@@ -65,23 +65,56 @@ return {
 		opts = {
 			picker = {
 				prompt = " ",
-				layout = function(source)
-					vim.notify("source: " .. source)
-					local layout_config = {}
-					layout_config.preset = "default"
-					for _, ils in ipairs(ivy_layout_sources) do
-						if string.find(source, ils) then
-							layout_config.preset = "ivy"
-							break
-						end
-					end
-					for _, hps in ipairs(hide_preview_sources) do
-						if string.find(source, hps) then
-							layout_config.hidden = { "preview" }
-						end
-					end
-					return layout_config
-				end,
+				sources = {
+					grep = {
+						layout = "ivy",
+					},
+					grep_buffers = {
+						layout = "ivy",
+					},
+					todo_comments = {
+						layout = "ivy",
+					},
+					-- lsp
+					lsp_config = {
+						layout = "ivy",
+					},
+					lsp_definitions = {
+						layout = "ivy",
+					},
+					lsp_references = {
+						layout = "ivy",
+					},
+					lsp_implementations = {
+						layout = "ivy",
+					},
+					lsp_type_definitions = {
+						layout = "ivy",
+					},
+					lsp_symbols = {
+						layout = "ivy",
+					},
+					lsp_workspace_symbols = {
+						layout = "ivy",
+					},
+				},
+				-- layout = function(source)
+				-- 	vim.notify("source: " .. source)
+				-- 	local layout_config = {}
+				-- 	layout_config.preset = "default"
+				-- 	for _, ils in ipairs(ivy_layout_sources) do
+				-- 		if string.find(source, ils) then
+				-- 			layout_config.preset = "ivy"
+				-- 			break
+				-- 		end
+				-- 	end
+				-- 	for _, hps in ipairs(hide_preview_sources) do
+				-- 		if string.find(source, hps) then
+				-- 			layout_config.hidden = { "preview" }
+				-- 		end
+				-- 	end
+				-- 	return layout_config
+				-- end,
 				win = {
 					input = {
 						keys = {
