@@ -126,31 +126,31 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 })
 
 --hl statusline
-vim.api.nvim_create_autocmd("ColorScheme", {
-	group = augroup("highlight_StatusLine"),
-	pattern = "*",
-	callback = function()
-		vim.api.nvim_set_hl(0, "StatusLine", { fg = "#fab387" })
-	end,
-})
+-- vim.api.nvim_create_autocmd("ColorScheme", {
+-- 	group = augroup("highlight_StatusLine"),
+-- 	pattern = "*",
+-- 	callback = function()
+-- 		vim.api.nvim_set_hl(0, "StatusLine", { fg = "#fab387" })
+-- 	end,
+-- })
 
 -- hl TreesitterContext
-vim.api.nvim_create_autocmd("ColorScheme", {
-	group = augroup("highlight_TreeSitterContext"),
-	pattern = "*",
-	callback = function()
-		vim.api.nvim_set_hl(0, "TreesitterContextBottom", { bg = "#313244" })
-		vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#1e1e2e" })
-		vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { fg = "#6c7086", bg = "#1e1e2e" })
-		vim.api.nvim_set_hl(0, "TreesitterContextLineNumberBottom", { bg = "#1e1e2e" })
-	end,
-})
+-- vim.api.nvim_create_autocmd("ColorScheme", {
+-- 	group = augroup("highlight_TreeSitterContext"),
+-- 	pattern = "*",
+-- 	callback = function()
+-- 		vim.api.nvim_set_hl(0, "TreesitterContextBottom", { bg = "#313244" })
+-- 		vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#1e1e2e" })
+-- 		vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { fg = "#6c7086", bg = "#1e1e2e" })
+-- 		vim.api.nvim_set_hl(0, "TreesitterContextLineNumberBottom", { bg = "#1e1e2e" })
+-- 	end,
+-- })
 
 -- CursorMoved url
 vim.api.nvim_create_autocmd({ "CursorMoved" }, {
 	group = augroup("highlight_Cursor_URL"),
 	callback = function()
 		NeoCraft.browse.hl_cursor()
-		vim.api.nvim_set_hl(0, "HighlightCursorUrl", { bg = nil, fg = "#f38ba8" })
+		-- vim.api.nvim_set_hl(0, "HighlightCursorUrl", { bg = nil, fg = "#f38ba8" })
 	end,
 })

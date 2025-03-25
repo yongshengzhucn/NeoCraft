@@ -44,6 +44,17 @@ return {
 			},
 			custom_highlights = {
 				FloatBorder = { fg = "#585b70" },
+				-- hl snacks
+				SnacksPickerPrompt = { fg = "#f9e2af" },
+				-- hl CursorMoved url
+				HighlightCursorUrl = { bg = nil, fg = "#f38ba8" },
+				-- hl TreesitterContext
+				TreesitterContextLineNumberBottom = { bg = "#1e1e2e" },
+				TreesitterContextLineNumber = { fg = "#6c7086", bg = "#1e1e2e" },
+				TreesitterContext = { bg = "#1e1e2e" },
+				TreesitterContextBottom = { bg = "#313244" },
+				--hl statusline
+				StatusLine = { fg = "#fab387" },
 			},
 		},
 		specs = {
