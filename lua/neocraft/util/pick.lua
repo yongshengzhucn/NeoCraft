@@ -1,9 +1,9 @@
 ---@class neocraft.util.pick
 ---@overload fun(command:string, opts?:neocraft.util.pick.Opts): fun()
 local M = setmetatable({}, {
-  __call = function(m, ...)
-    return m.wrap(...)
-  end,
+	__call = function(m, ...)
+		return m.wrap(...)
+	end,
 })
 
 ---@class neocraft.util.pick.Opts: table<string, any>
@@ -18,91 +18,81 @@ local M = setmetatable({}, {
 ---@field commands table<string, string>
 
 ---@type LazyPicker?
-M.picker = {
-  name = "telescope",
-  commands = {
-    files = "find_files",
-  },
-  ---@param builtin string
-  ---@param opts? neocraft.util.pick.Opts
-  open = function(builtin, opts)
-    opts = opts or {}
-    opts.follow = opts.follow ~= false
-    if opts.cwd and opts.cwd ~= vim.uv.cwd() then
-      local function open_cwd_dir()
-        local action_state = require("telescope.actions.state")
-        local line = action_state.get_current_line()
-        NeoCraft.pick.open(
-          builtin,
-          vim.tbl_deep_extend("force", {}, opts or {}, {
-            root = false,
-            default_text = line,
-          })
-        )
-      end
-      ---@diagnostic disable-next-line: inject-field
-      opts.attach_mappings = function(_, map)
-        -- opts.desc is overridden by telescope, until it's changed there is this fix
-        map("i", "<a-c>", open_cwd_dir, { desc = "Open cwd Directory" })
-        return true
-      end
-    end
+M.picker = nil
 
-    require("telescope.builtin")[builtin](opts)
-  end,
-}
+---@param picker LazyPicker
+function M.register(picker)
+	-- this only happens when using :LazyExtras
+	-- so allow to get the full spec
+	if vim.v.vim_did_enter == 1 then
+		return true
+	end
+
+	if M.picker and M.picker.name ~= picker.name then
+		NeoCraft.warn(
+			"`NeoCraft.pick`: picker already set to `"
+				.. M.picker.name
+				.. "`,\nignoring new picker `"
+				.. picker.name
+				.. "`"
+		)
+		return false
+	end
+	M.picker = picker
+	return true
+end
 
 ---@param command? string
 ---@param opts? neocraft.util.pick.Opts
 function M.open(command, opts)
-  if not M.picker then
-    return NeoCraft.error("NeoCraft.pick: picker not set")
-  end
+	if not M.picker then
+		return NeoCraft.error("NeoCraft.pick: picker not set")
+	end
 
-  command = command or "auto"
-  opts = opts or {}
+	command = command or "auto"
+	opts = opts or {}
 
-  opts = vim.deepcopy(opts)
+	opts = vim.deepcopy(opts)
 
-  if type(opts.cwd) == "boolean" then
-    NeoCraft.warn("NeoCraft.pick: opts.cwd should be a string or nil")
-    opts.cwd = nil
-  end
+	if type(opts.cwd) == "boolean" then
+		NeoCraft.warn("NeoCraft.pick: opts.cwd should be a string or nil")
+		opts.cwd = nil
+	end
 
-  if not opts.cwd and opts.root ~= false then
-    opts.cwd = NeoCraft.root({ buf = opts.buf })
-  end
+	if not opts.cwd and opts.root ~= false then
+		opts.cwd = NeoCraft.root({ buf = opts.buf })
+	end
 
-  local cwd = opts.cwd or vim.uv.cwd()
-  if command == "auto" then
-    command = "files"
-    if
-      vim.uv.fs_stat(cwd .. "/.git")
-      and not vim.uv.fs_stat(cwd .. "/.ignore")
-      and not vim.uv.fs_stat(cwd .. "/.rgignore")
-    then
-      command = "git_files"
-      if opts.show_untracked == nil then
-        opts.show_untracked = true
-        opts.recurse_submodules = false
-      end
-    end
-  end
-  command = M.picker.commands[command] or command
-  M.picker.open(command, opts)
+	local cwd = opts.cwd or vim.uv.cwd()
+	if command == "auto" then
+		command = "files"
+		if
+			vim.uv.fs_stat(cwd .. "/.git")
+			and not vim.uv.fs_stat(cwd .. "/.ignore")
+			and not vim.uv.fs_stat(cwd .. "/.rgignore")
+		then
+			command = "git_files"
+			if opts.show_untracked == nil then
+				opts.show_untracked = true
+				opts.recurse_submodules = false
+			end
+		end
+	end
+	command = M.picker.commands[command] or command
+	M.picker.open(command, opts)
 end
 
 ---@param command? string
 ---@param opts? neocraft.util.pick.Opts
 function M.wrap(command, opts)
-  opts = opts or {}
-  return function()
-    NeoCraft.pick.open(command, vim.deepcopy(opts))
-  end
+	opts = opts or {}
+	return function()
+		NeoCraft.pick.open(command, vim.deepcopy(opts))
+	end
 end
 
 function M.config_files()
-  return M.wrap("files", { cwd = vim.fn.stdpath("config") })
+	return M.wrap("files", { cwd = vim.fn.stdpath("config") })
 end
 
 return M
