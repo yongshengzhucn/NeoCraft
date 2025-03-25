@@ -19,6 +19,44 @@ if not NeoCraft.pick.register(picker) then
 	return {}
 end
 
+local ivy_layout_sources = {
+	"grep",
+	"grep_buffers",
+	"todo_comments",
+	"lsp_config",
+	"lsp_definitions",
+	"lsp_references",
+	"lsp_implementations",
+	"lsp_type_definitions",
+	"lsp_symbols",
+	"lsp_workspace_symbols",
+	"notifications",
+	"git_stash",
+	"git_status",
+	"git_diff",
+	"live_grep",
+	"lines",
+	"grep_buffers",
+	"grep_word",
+	"lazy",
+	"registers",
+	"autocmds",
+	"commands",
+	"undo",
+	"qflist",
+	"resume",
+	"marks",
+	"man",
+	"loclist",
+	"keymaps",
+	"jumps",
+	"highlights",
+	"help",
+	"diagnostics_buffer",
+	"diagnostics",
+}
+local hide_preview_sources = { "files", "buffers", "oldfiles", "config_files", "git_files", "recent", "projects" }
+
 return {
 	desc = "Fast and modern file picker",
 	recommended = true,
@@ -27,33 +65,23 @@ return {
 		opts = {
 			picker = {
 				prompt = " ",
-				sources = {
-					todo_comments = {
-						layout = "ivy",
-					},
-					-- lsp
-					lsp_config = {
-						layout = "ivy",
-					},
-					lsp_definitions = {
-						layout = "ivy",
-					},
-					lsp_references = {
-						layout = "ivy",
-					},
-					lsp_implementations = {
-						layout = "ivy",
-					},
-					lsp_type_definitions = {
-						layout = "ivy",
-					},
-					lsp_symbols = {
-						layout = "ivy",
-					},
-					lsp_workspace_symbols = {
-						layout = "ivy",
-					},
-				},
+				layout = function(source)
+					vim.notify("source: " .. source)
+					local layout_config = {}
+					layout_config.preset = "default"
+					for _, ils in ipairs(ivy_layout_sources) do
+						if string.find(source, ils) then
+							layout_config.preset = "ivy"
+							break
+						end
+					end
+					for _, hps in ipairs(hide_preview_sources) do
+						if string.find(source, hps) then
+							layout_config.hidden = { "preview" }
+						end
+					end
+					return layout_config
+				end,
 				win = {
 					input = {
 						keys = {
@@ -106,8 +134,8 @@ return {
       { "<leader>sw", NeoCraft.pick("grep_word"), desc = "Visual selection or word (Root Dir)", mode = { "n", "x" } },
       { "<leader>sW", NeoCraft.pick("grep_word", { root = false }), desc = "Visual selection or word (cwd)", mode = { "n", "x" } },
       -- search
-      { '<leader>sr"', function() Snacks.picker.registers() end, desc = "Registers" },
-      { '<leader>s/', function() Snacks.picker.search_history() end, desc = "Search History" },
+      { "<leader>sr", function() Snacks.picker.registers() end, desc = "Registers" },
+      { "<leader>s/", function() Snacks.picker.search_history() end, desc = "Search History" },
       { "<leader>sa", function() Snacks.picker.autocmds() end, desc = "Autocmds" },
       { "<leader>sc", function() Snacks.picker.command_history() end, desc = "Command History" },
       { "<leader>sC", function() Snacks.picker.commands() end, desc = "Commands" },
