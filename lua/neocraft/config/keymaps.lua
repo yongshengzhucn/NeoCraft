@@ -157,9 +157,6 @@ map("n", "<space>o", function()
 	NeoCraft.browse.open()
 end, { desc = "Open url under cursor" })
 
--- undo tree
-map("n", "<space>u", "<cmd>Telescope undo<cr>", { desc = "Visual Undo tree" })
-
 -- toggle lsp inlay hints
 if vim.lsp.inlay_hint then
 	Snacks.toggle.inlay_hints():map("<leader>uh")
