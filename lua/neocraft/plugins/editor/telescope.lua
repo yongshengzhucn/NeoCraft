@@ -43,8 +43,8 @@ local picker = {
 		require("telescope.builtin")[builtin](opts)
 	end,
 }
-if true then
-	-- if not NeoCraft.pick.register(picker) then
+-- if true then
+if not NeoCraft.pick.register(picker) then
 	return {}
 end
 
@@ -162,7 +162,8 @@ return {
 				end,
 				desc = "Open File Browser(current buffer path)",
 			},
-			{ "<space>r", "<cmd>Telescope resume<cr>", desc = "Telescope Resume" },
+			{ "<space>r", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
+			{ "<space>h", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
 			{
 				"<leader>,",
 				"<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>",

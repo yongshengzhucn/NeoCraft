@@ -139,11 +139,6 @@ map("n", "<leader>q", "<cmd>qa<cr>", { desc = "Quit All" })
 -- Save
 map("n", "<space>w", "<cmd>update<cr>", { desc = "Save Current buffer" })
 
--- Help
-map("n", "<space>h", function()
-	vim.fn.feedkeys(vim.api.nvim_replace_termcodes(":help ", true, false, true))
-end, { desc = "Help" })
-
 -- Lua cmdline
 map("n", "<space>l", function()
 	vim.fn.feedkeys(vim.api.nvim_replace_termcodes(":lua ", true, false, true))

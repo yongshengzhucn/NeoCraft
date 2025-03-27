@@ -15,7 +15,9 @@ local picker = {
 		return Snacks.picker.pick(source, opts)
 	end,
 }
-if not NeoCraft.pick.register(picker) then
+---TODO: wait for update to fix some known bugs
+if true then
+	-- if not NeoCraft.pick.register(picker) then
 	return {}
 end
 
@@ -111,6 +113,8 @@ return {
       { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
       { "<leader><space>", NeoCraft.pick("files"), desc = "Find Files (Root Dir)" },
       { "<space>n", function() Snacks.picker.notifications() end, desc = "Notification History" },
+      { "<space>h", function() Snacks.picker.help() end, desc = "Help Pages" },
+      { "<space>r", NeoCraft.pick("oldfiles"), desc = "Recent" },
       -- find
       { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
       -- { "<leader>fB", function() Snacks.picker.buffers({ hidden = true, nofile = true }) end, desc = "Buffers (all)" },
