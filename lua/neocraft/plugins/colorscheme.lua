@@ -55,6 +55,8 @@ return {
 				TreesitterContextBottom = { bg = "#313244" },
 				--hl statusline
 				StatusLine = { fg = "#fab387" },
+				--hl noice
+				NoiceCmdlineIcon = { fg = "#89b4fa" },
 			},
 		},
 		specs = {

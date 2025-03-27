@@ -88,7 +88,7 @@ return {
 				view = "cmdline_popup",
 				format = {
 					cmdline = { pattern = "^:", icon = " ", lang = "vim" },
-					lua = { pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" }, icon = " ", lang = "lua" },
+					lua = { pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" }, icon = " ", lang = "lua" },
 					python = {
 						pattern = { "^:%s*pyt?h?o?n?%s+", "^:%s*py?t?h?o?n%s*=%s*" },
 						icon = "󰌠 ",
@@ -179,4 +179,3 @@ return {
 	-- import ui
 	{ import = "neocraft.plugins.ui" },
 }
-
