@@ -56,7 +56,7 @@ return {
 				--hl statusline
 				StatusLine = { fg = "#fab387" },
 				--hl noice
-				NoiceCmdlineIcon = { fg = "#cba6f7" },
+				NoiceCmdlineIcon = { fg = "#94e2d5" },
 				NoiceCmdlinePopupBorder = { fg = "#585b70" },
 			},
 		},

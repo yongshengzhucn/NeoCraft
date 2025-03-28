@@ -26,7 +26,10 @@ return {
 				},
 				render = function(props)
 					local relative_path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":~:.:h")
-					relative_path = string.gsub(relative_path, "^oil://", "")
+					if vim.bo.filetype == "oil" then
+						local prefix = "oil://"
+						relative_path = relative_path:sub(#prefix + 1)
+					end
 					local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
 					local mini_icons = require("mini.icons")
 					local ft_icon, ft_hl = (filename and #filename > 0) and mini_icons.get("extension", filename)
