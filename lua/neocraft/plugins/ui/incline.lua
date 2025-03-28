@@ -32,9 +32,15 @@ return {
 					end
 					local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ":t")
 					local mini_icons = require("mini.icons")
-					local ft_icon, ft_hl = (filename and #filename > 0) and mini_icons.get("extension", filename)
-						or mini_icons.get("directory", relative_path)
-					local ft_color = vim.api.nvim_get_hl(0, { name = ft_hl }).guifg
+					local ft_icon, ft_hl
+					local category = (filename and #filename > 0) and "extension" or "directory"
+					local name = (filename and #filename > 0) and filename or relative_path
+					local ft_icon, ft_hl = mini_icons.get(category, name)
+					local ft_color_int = vim.api.nvim_get_hl(0, { name = ft_hl }).fg
+					local r = math.floor(ft_color_int / 65536)
+					local g = math.floor(ft_color_int / 256) % 256
+					local b = ft_color_int % 256
+					local ft_color = string.format("#%02x%02x%02x", r, g, b)
 					local modified = vim.bo[props.buf].modified
 					local separator = (filename and #filename > 0) and "/" or ""
 					local buffer = {
@@ -43,7 +49,7 @@ return {
 						" ",
 						{
 							relative_path and process_path(relative_path) .. separator,
-							guifg = ft_color,
+							guifg = "#89b4fa",
 							guibg = "none",
 						},
 						{
