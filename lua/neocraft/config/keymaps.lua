@@ -157,9 +157,6 @@ if vim.lsp.inlay_hint then
 	Snacks.toggle.inlay_hints():map("<leader>uh")
 end
 
--- InspectTree
-map("n", "<leader>I", "<cmd>InspectTree<cr>", { desc = "Inspect Tree" })
-
 -- better y
 map("n", "<space>y", "^y$", { desc = "Yank to end of line" })
 
