@@ -1,5 +1,7 @@
 return {
 
+	---TODO: title
+
 	-- This is what powers NeoCraft's fancy-looking
 	-- tabs, which include filetype icons and close buttons.
 	{

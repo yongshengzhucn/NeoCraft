@@ -1,6 +1,5 @@
 return {
 
-	---TODO: ft_color change with git status
 	{
 		"b0o/incline.nvim",
 		dependencies = {},

@@ -23,15 +23,5 @@ return {
 				},
 			},
 		},
-		keys = {
-			{
-				"<space>t",
-				function()
-					NeoCraft.terminal.open_with_venv()
-				end,
-				desc = "Open terminal Python VirtualEnv",
-				ft = "python",
-			},
-		},
 	},
 }

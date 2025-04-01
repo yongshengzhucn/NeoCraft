@@ -57,6 +57,7 @@ return {
 					mode = { "n", "v" },
 					{ "g", group = "goto" },
 					{ "<leader>c", group = "code" },
+					{ "<leader>d", group = "debug" },
 					{ "<leader>f", group = "file/find" },
 					{ "<leader>g", group = "git" },
 					{ "<leader>gh", group = "hunks" },
@@ -223,8 +224,8 @@ return {
       { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous Todo Comment" },
       { "<leader>xt", "<cmd>Trouble todo toggle<cr>", desc = "Todo (Trouble)" },
       { "<leader>xT", "<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
-      { "<leader>tt", "<cmd>TodoTelescope<cr>", desc = "Todo" },
-      { "<leader>tT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
+      { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
+      { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
     },
 	},
 

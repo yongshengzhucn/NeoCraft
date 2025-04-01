@@ -55,13 +55,13 @@ return {
 			end)
 		end,
 		opts = function()
-			local plugin = require("lazy.core.config").plugins["conform.nvim"]
-			if plugin.config ~= M.setup then
-				NeoCraft.error({
-					"Don't set `plugin.config` for `conform.nvim`.\n",
-					"This will break **NeoCraft** formatting.\n",
-				}, { title = "NeoCraft" })
-			end
+			-- local plugin = require("lazy.core.config").plugins["conform.nvim"]
+			-- if plugin.config ~= M.setup then
+			-- 	NeoCraft.error({
+			-- 		"Don't set `plugin.config` for `conform.nvim`.\n",
+			-- 		"This will break **NeoCraft** formatting.\n",
+			-- 	}, { title = "NeoCraft" })
+			-- end
 			---@type conform.setupOpts
 			local opts = {
 				default_format_opts = {
@@ -99,5 +99,5 @@ return {
 	},
 
 	-- import formatting
-	-- { import = "neocraft.plugins.formatting" },
+	{ import = "neocraft.plugins.formatting" },
 }
