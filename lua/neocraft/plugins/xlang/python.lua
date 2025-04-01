@@ -88,6 +88,7 @@ return {
 		opts = {
 			settings = {
 				options = {
+					-- picker = "native",
 					notify_user_on_venv_activation = true,
 					telescope_active_venv_color = "#a6e3a1",
 					on_venv_activate_callback = function()
