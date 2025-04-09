@@ -28,6 +28,10 @@ function M.register(picker)
 		return true
 	end
 
+	if vim.g.neocraft_picker ~= picker.name then
+		return false
+	end
+
 	if M.picker and M.picker.name ~= picker.name then
 		NeoCraft.warn(
 			"`NeoCraft.pick`: picker already set to `"
@@ -38,6 +42,7 @@ function M.register(picker)
 		)
 		return false
 	end
+
 	M.picker = picker
 	return true
 end

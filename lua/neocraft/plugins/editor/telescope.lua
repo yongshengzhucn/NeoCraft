@@ -43,7 +43,6 @@ local picker = {
 		require("telescope.builtin")[builtin](opts)
 	end,
 }
--- if true then
 if not NeoCraft.pick.register(picker) then
 	return {}
 end

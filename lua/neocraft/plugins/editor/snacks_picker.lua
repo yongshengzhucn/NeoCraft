@@ -16,8 +16,7 @@ local picker = {
 	end,
 }
 ---TODO: wait for update to fix some known bugs
-if true then
-	-- if not NeoCraft.pick.register(picker) then
+if not NeoCraft.pick.register(picker) then
 	return {}
 end
 

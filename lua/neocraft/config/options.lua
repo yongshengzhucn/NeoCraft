@@ -3,6 +3,15 @@ vim.g.maplocalleader = "\\"
 
 vim.g.autoformat = true
 
+-- Snacks animations
+-- Set to `false` to globally disable all snacks animations
+vim.g.snacks_animate = true
+
+-- NeoCraft picker to use.
+-- Can be one of: telescope, fzf, snacks
+-- Leave it to "auto" to automatically use the picker
+vim.g.neocraft_picker = "fzf"
+
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 
 -- Set LSP servers to be ignored when used with `util.root.detectors.lsp`
@@ -93,7 +102,7 @@ opt.splitright = true -- Put new windows right of current
 opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
 opt.tabstop = 2 -- Number of spaces tabs count for
 opt.termguicolors = true -- True color support
-opt.timeoutlen = 300 -- Lower than default (1000) to quickly trigger which-key
+opt.timeoutlen = vim.g.vscode and 1000 or 300 -- Lower than default (1000) to quickly trigger which-key
 -- opt.title = true
 opt.undofile = true
 opt.undolevels = 10000
