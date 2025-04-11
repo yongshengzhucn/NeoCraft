@@ -70,14 +70,6 @@ return {
 							{ event = "lsp", kind = "message" },
 						},
 					},
-					-- filter = {
-					--   event = "msg_show",
-					--   any = {
-					--     { find = "%d+L, %d+B" },
-					--     { find = "; after #%d+" },
-					--     { find = "; before #%d+" },
-					--   },
-					-- },
 					view = "mini",
 				},
 			},
@@ -85,25 +77,6 @@ return {
 				lsp_doc_border = true,
 				command_palette = true,
 				long_message_to_split = true,
-			},
-			cmdline = {
-				view = "cmdline_popup",
-				format = {
-					cmdline = { pattern = "^:", icon = " ", lang = "vim" },
-					lua = { pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" }, icon = " ", lang = "lua" },
-					python = {
-						pattern = { "^:%s*pyt?h?o?n?%s+", "^:%s*py?t?h?o?n%s*=%s*" },
-						icon = "󰌠 ",
-						lang = "python",
-						title = " Python ",
-					},
-					git = {
-						pattern = { "^:Gitsigns%s+", "^:Git%s+" },
-						icon = " ",
-						lang = "vim",
-						title = " Git ",
-					},
-				},
 			},
 		},
     -- stylua: ignore
