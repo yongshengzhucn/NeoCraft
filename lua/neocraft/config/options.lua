@@ -12,6 +12,10 @@ vim.g.snacks_animate = true
 -- Leave it to "auto" to automatically use the picker
 vim.g.neocraft_picker = "fzf"
 
+-- if the completion engine supports the AI source,
+-- use that instead of inline suggestions
+vim.g.ai_cmp = true
+
 vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 
 -- Set LSP servers to be ignored when used with `util.root.detectors.lsp`

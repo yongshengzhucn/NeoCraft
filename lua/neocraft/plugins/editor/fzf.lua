@@ -208,6 +208,7 @@ return {
 			{ "<c-k>", "<c-k>", ft = "fzf", mode = "t", nowait = true },
 			{ "<space>r", "<cmd>FzfLua oldfiles<cr>", desc = "Recent" },
 			{ "<space>h", "<cmd>FzfLua help_tags<cr>", desc = "Help Pages" },
+			{ "<space>/", NeoCraft.pick("files"), desc = "Find Files (Root Dir)" },
 			{
 				"<leader>,",
 				"<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>",

@@ -48,10 +48,16 @@ return {
 					draw = {
 						treesitter = { "lsp" },
 					},
+					border = "rounded",
+					max_height = 15,
 				},
 				documentation = {
 					auto_show = true,
-					auto_show_delay_ms = 200,
+					auto_show_delay_ms = 125,
+					window = {
+						border = "rounded",
+						max_width = 80,
+					},
 				},
 				ghost_text = {
 					enabled = vim.g.ai_cmp,
@@ -59,7 +65,11 @@ return {
 			},
 
 			-- experimental signature help support
-			-- signature = { enabled = true },
+			-- Disabled lsp signature in noice.nvim
+			-- signature = {
+			-- 	enabled = true,
+			-- 	window = { border = "rounded" },
+			-- },
 
 			sources = {
 				-- adding any nvim-cmp sources here will enable them

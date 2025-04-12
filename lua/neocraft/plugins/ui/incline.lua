@@ -1,3 +1,6 @@
+local function f(color)
+	return string.format("#%06x", color)
+end
 return {
 
 	{
@@ -36,10 +39,7 @@ return {
 					local name = (filename and #filename > 0) and filename or relative_path
 					local ft_icon, ft_hl = mini_icons.get(category, name)
 					local ft_color_int = vim.api.nvim_get_hl(0, { name = ft_hl }).fg
-					local r = math.floor(ft_color_int / 65536)
-					local g = math.floor(ft_color_int / 256) % 256
-					local b = ft_color_int % 256
-					local ft_color = string.format("#%02x%02x%02x", r, g, b)
+					local ft_color = f(ft_color_int)
 					local modified = vim.bo[props.buf].modified
 					local separator = (filename and #filename > 0) and "/" or ""
 					local buffer = {

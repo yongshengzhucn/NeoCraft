@@ -18,7 +18,7 @@ return {
 			},
 			highlights = {
 				FloatBorder = {
-					guifg = "#585b70",
+					guifg = "#cba6f7",
 					guibg = "#1E1E2E",
 				},
 			},
