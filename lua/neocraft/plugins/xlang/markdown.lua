@@ -78,7 +78,9 @@ return {
 
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
+		opts_extend = { "file_types" },
 		opts = {
+			file_types = { "markdown", "norg", "rmd", "org", "codecompanion" },
 			code = {
 				sign = false,
 				width = "block",

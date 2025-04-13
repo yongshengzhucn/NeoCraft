@@ -6,7 +6,6 @@ return {
 	{
 		"b0o/incline.nvim",
 		dependencies = {},
-		event = "VeryLazy",
 		config = function()
 			local function process_path(path)
 				local home_dir = vim.api.nvim_eval('expand("~")')
