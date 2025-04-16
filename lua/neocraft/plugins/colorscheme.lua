@@ -65,7 +65,6 @@ return {
 				BlinkCmpDocSeparator = { fg = "#cba6f7", bg = "#1e1e2e" },
 				BlinkCmpScrollBarThumb = { bg = "#cba6f7" },
 				BlinkCmpMenuSelection = { bg = "#313244" },
-
 				-- which_key
 				WhichKey = { fg = "#a6adc8", bg = "#1e1e2e" },
 				WhichKeyNormal = { fg = "#cba6f7", bg = "#1e1e2e" },

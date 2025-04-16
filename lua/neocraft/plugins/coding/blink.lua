@@ -80,6 +80,9 @@ return {
 
 			cmdline = {
 				enabled = true,
+				keymap = {
+					["<CR>"] = { "accept_and_enter", "fallback" },
+				},
 			},
 
 			keymap = {

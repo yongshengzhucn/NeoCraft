@@ -22,13 +22,6 @@ vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
 -- for detecting the LSP root
 vim.g.root_lsp_ignore = { "copilot" }
 
--- NeoCraft automatically configures lazygit:
---  * theme, based on the active colorscheme.
---  * editorPreset to nvim-remote
---  * enables nerd font icons
--- Set to false to disable.
-vim.g.lazygit_config = true
-
 -- Set filetype to `bigfile` for files larger than 1.5 MB
 -- Only vim syntax will be enabled (with the correct filetype)
 -- LSP, treesitter and other ft plugins will be disabled.

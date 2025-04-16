@@ -154,6 +154,7 @@ return {
 					},
 				},
 				grep = {
+					hidden = true,
 					actions = {
 						["alt-i"] = { actions.toggle_ignore },
 						["alt-h"] = { actions.toggle_hidden },
