@@ -133,3 +133,44 @@ vim.api.nvim_create_autocmd({ "CursorMoved" }, {
 		NeoCraft.browse.hl_cursor()
 	end,
 })
+
+local prefix = "Avante" --
+
+local function update_laststatus_for_avante()
+	local avante_window_found = false
+	for _, winid in ipairs(vim.api.nvim_list_wins()) do
+		if vim.api.nvim_win_is_valid(winid) then
+			local bufnr = vim.api.nvim_win_get_buf(winid)
+			if vim.api.nvim_buf_is_valid(bufnr) and vim.api.nvim_buf_is_loaded(bufnr) then
+				local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+				if ft and string.find(ft, prefix, 1, true) == 1 then
+					avante_window_found = true
+					break
+				end
+			end
+		end
+	end
+	if avante_window_found then
+		if vim.opt.laststatus:get() ~= 3 then
+			vim.opt.laststatus = 3
+		end
+	else
+		if vim.opt.laststatus:get() ~= 1 then
+			vim.opt.laststatus = 1
+		end
+	end
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+	group = augroup("AvanteLastStatus"),
+	pattern = "Avante*",
+	callback = update_laststatus_for_avante,
+	desc = "Update laststatus on Avante* FileType change",
+})
+
+vim.api.nvim_create_autocmd({ "WinEnter", "WinClosed", "BufWinEnter" }, {
+	group = augroup("AvanteLastStatus"),
+	pattern = "*",
+	callback = update_laststatus_for_avante,
+	desc = "Update laststatus on window/buffer changes",
+})

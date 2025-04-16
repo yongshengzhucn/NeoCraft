@@ -10,7 +10,7 @@ vim.g.snacks_animate = true
 -- NeoCraft picker to use.
 -- Can be one of: telescope, fzf, snacks
 -- Leave it to "auto" to automatically use the picker
-vim.g.neocraft_picker = "fzf"
+vim.g.neocraft_picker = "snacks"
 
 -- if the completion engine supports the AI source,
 -- use that instead of inline suggestions

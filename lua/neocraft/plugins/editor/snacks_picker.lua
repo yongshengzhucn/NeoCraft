@@ -66,23 +66,23 @@ return {
 		opts = {
 			picker = {
 				prompt = " ",
-				layout = function(source)
-					vim.notify("source: " .. source)
-					local layout_config = {}
-					layout_config.preset = "default"
-					for _, ils in ipairs(ivy_layout_sources) do
-						if string.find(source, ils) then
-							layout_config.preset = "ivy"
-							break
-						end
-					end
-					for _, hps in ipairs(hide_preview_sources) do
-						if string.find(source, hps) then
-							layout_config.hidden = { "preview" }
-						end
-					end
-					return layout_config
-				end,
+				-- layout = function(source)
+				-- 	vim.notify("source: " .. source)
+				-- 	local layout_config = {}
+				-- 	layout_config.preset = "default"
+				-- 	for _, ils in ipairs(ivy_layout_sources) do
+				-- 		if string.find(source, ils) then
+				-- 			layout_config.preset = "ivy"
+				-- 			break
+				-- 		end
+				-- 	end
+				-- 	for _, hps in ipairs(hide_preview_sources) do
+				-- 		if string.find(source, hps) then
+				-- 			layout_config.hidden = { "preview" }
+				-- 		end
+				-- 	end
+				-- 	return layout_config
+				-- end,
 				win = {
 					input = {
 						keys = {
@@ -108,12 +108,13 @@ return {
     -- stylua: ignore
     keys = {
       { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
-      { "<leader>/", NeoCraft.pick("grep"), desc = "Grep (Root Dir)" },
+      { "<leader>/", NeoCraft.pick("grep",{ hidden = true }), desc = "Grep (Root Dir)" },
       { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
       { "<leader><space>", NeoCraft.pick("files"), desc = "Find Files (Root Dir)" },
       { "<space>n", function() Snacks.picker.notifications() end, desc = "Notification History" },
       { "<space>h", function() Snacks.picker.help() end, desc = "Help Pages" },
       { "<space>r", NeoCraft.pick("oldfiles"), desc = "Recent" },
+      { "<space>/", NeoCraft.pick("files"), desc = "Find Files (Root Dir)" },
       -- find
       { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
       -- { "<leader>fB", function() Snacks.picker.buffers({ hidden = true, nofile = true }) end, desc = "Buffers (all)" },
