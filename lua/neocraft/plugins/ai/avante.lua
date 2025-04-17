@@ -11,19 +11,6 @@ return {
 				model = "qwen2.5-coder:32b",
 			},
 
-			-- Because ollama has become the first-class provider for avante.nvim, the below configuration is no longer valid.
-			-- vendors = {
-			-- 	ollama = {
-			-- 		__inherited_from = "openai",
-			-- 		api_key_name = "",
-			-- 		endpoint = "http://127.0.0.1:11434/v1",
-			-- 		model = "qwen2.5-coder",
-			-- 		max_tokens = 4096,
-			-- 		-- important to set this to true if you are using a local server
-			-- 		disable_tools = true,
-			-- 	},
-			-- },
-
 			behaviour = {
 				auto_suggestions = false, -- Experimental stage
 				auto_set_highlight_group = true,
@@ -122,9 +109,9 @@ return {
 			{
 				"<space>a",
 				function()
-					require("avante.api").ask()
+					require("avante.api").toggle()
 				end,
-				desc = "avante: ask",
+				desc = "avante: toggle",
 				mode = { "n", "v" },
 			},
 			{ "<leader>a", "", desc = "+ai", mode = { "n", "v" } },
@@ -142,6 +129,93 @@ return {
 				end,
 				desc = "avante: edit",
 				mode = "v",
+			},
+		},
+	},
+	{
+		"saghen/blink.cmp",
+		optional = true,
+		dependencies = {
+			{
+				"saghen/blink.compat",
+				config = function()
+					-- monkeypatch cmp.ConfirmBehavior for Avante
+					require("cmp").ConfirmBehavior = {
+						Insert = "insert",
+						Replace = "replace",
+					}
+				end,
+			},
+		},
+		opts = {
+			sources = {
+				default = { "avante_commands", "avante_mentions", "avante_files" },
+				providers = {
+					avante_commands = {
+						name = "avante_commands",
+						module = "blink.compat.source",
+						min_keyword_length = function(ctx)
+							if ctx.trigger.kind ~= "trigger_character" then
+								return 10000
+							end
+							local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+							local line = vim.api.nvim_get_current_line()
+
+							if col > 0 and line:sub(col, col) == "/" then
+								if col == 1 or not line:sub(col - 1, col - 1):match("%w") then
+									return 0
+								end
+							end
+							return 10000
+						end,
+						opts = {},
+					},
+					avante_files = {
+						name = "avante_files",
+						module = "blink.compat.source",
+						min_keyword_length = function(ctx)
+							if ctx.trigger.kind ~= "trigger_character" then
+								return 10000
+							end
+							local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+							local line = vim.api.nvim_get_current_line()
+
+							if col > 0 and line:sub(col, col) == "/" then
+								if col == 1 or not line:sub(col - 1, col - 1):match("%w") then
+									return 0
+								end
+							end
+							return 10000
+						end,
+						opts = {},
+					},
+					avante_mentions = {
+						name = "avante_mentions",
+						module = "blink.compat.source",
+						min_keyword_length = function(ctx)
+							if ctx.trigger.kind ~= "trigger_character" then
+								return 10000
+							end
+							local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+							local line = vim.api.nvim_get_current_line()
+
+							if col > 0 and line:sub(col, col) == "@" then
+								if col == 1 or not line:sub(col - 1, col - 1):match("%w") then
+									return 0
+								end
+							end
+							return 10000
+						end,
+						opts = {},
+					},
+				},
+				per_filetype = {
+					AvanteInput = {
+						"avante_commands",
+						"avante_mentions",
+						"avante_files",
+					},
+				},
 			},
 		},
 	},

@@ -44,7 +44,7 @@ return {
 			},
 			custom_highlights = {
 				FloatBorder = { fg = "#cba6f7" },
-				NormalFloat = { bg = "#1e1e2e" },
+				-- NormalFloat = { bg = "#1e1e2e" },
 				-- hl snacks
 				SnacksPickerPrompt = { fg = "#f9e2af" },
 				-- hl CursorMoved url

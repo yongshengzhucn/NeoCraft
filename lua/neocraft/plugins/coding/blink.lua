@@ -65,11 +65,9 @@ return {
 			},
 
 			-- experimental signature help support
-			-- Disabled lsp signature in noice.nvim
-			-- signature = {
-			-- 	enabled = true,
-			-- 	window = { border = "rounded" },
-			-- },
+			signature = {
+				enabled = false,
+			},
 
 			sources = {
 				-- adding any nvim-cmp sources here will enable them
