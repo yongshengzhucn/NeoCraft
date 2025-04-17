@@ -65,9 +65,9 @@ return {
 			},
 
 			-- experimental signature help support
-			signature = {
-				enabled = false,
-			},
+			-- signature = {
+			-- 	enabled = true,
+			-- },
 
 			sources = {
 				-- adding any nvim-cmp sources here will enable them

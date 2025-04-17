@@ -134,43 +134,98 @@ vim.api.nvim_create_autocmd({ "CursorMoved" }, {
 	end,
 })
 
-local prefix = "Avante" --
-
-local function update_laststatus_for_avante()
-	local avante_window_found = false
-	for _, winid in ipairs(vim.api.nvim_list_wins()) do
-		if vim.api.nvim_win_is_valid(winid) then
-			local bufnr = vim.api.nvim_win_get_buf(winid)
-			if vim.api.nvim_buf_is_valid(bufnr) and vim.api.nvim_buf_is_loaded(bufnr) then
-				local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
-				if ft and string.find(ft, prefix, 1, true) == 1 then
-					avante_window_found = true
-					break
-				end
-			end
-		end
+local avante_module = nil
+local function get_avante_module()
+	if avante_module ~= nil then
+		return avante_module
 	end
-	if avante_window_found then
-		if vim.opt.laststatus:get() ~= 3 then
-			vim.opt.laststatus = 3
-		end
-	else
-		if vim.opt.laststatus:get() ~= 1 then
-			vim.opt.laststatus = 1
-		end
+
+	local ok, module = pcall(require, "avante")
+	if ok and module and type(module.get) == "function" then
+		avante_module = module
+		return module
+	end
+	return nil
+end
+
+local function set_laststatus(value)
+	if vim.opt.laststatus:get() == value then
+		return
+	end
+
+	local ok, err = pcall(function()
+		vim.opt.laststatus = value
+	end)
+
+	if not ok and NeoCraft and type(NeoCraft.error) == "function" then
+		NeoCraft.error("Error setting laststatus=" .. value .. ": " .. tostring(err))
 	end
 end
+
+local debounce_timer = nil
+local function update_laststatus_for_avante_sidebar()
+	if debounce_timer then
+		vim.loop.timer_stop(debounce_timer)
+		debounce_timer = nil
+	end
+
+	debounce_timer = vim.defer_fn(function()
+		local avante_window_found = false
+		local module = get_avante_module()
+
+		if module then
+			local ok, side_bar = pcall(module.get)
+			if ok and side_bar and type(side_bar.is_open) == "function" then
+				local is_open_ok, is_open = pcall(side_bar.is_open, side_bar)
+				avante_window_found = (is_open_ok and is_open) or false
+			end
+		end
+
+		set_laststatus(avante_window_found and 3 or 1)
+	end, 50)
+end
+
+-- local prefix = "Avante" --
+
+-- local function update_laststatus_for_avante()
+-- 	local avante_window_found = false
+-- 	for _, winid in ipairs(vim.api.nvim_list_wins()) do
+-- 		if vim.api.nvim_win_is_valid(winid) then
+-- 			local bufnr = vim.api.nvim_win_get_buf(winid)
+-- 			if vim.api.nvim_buf_is_valid(bufnr) and vim.api.nvim_buf_is_loaded(bufnr) then
+-- 				local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+-- 				if ft and string.find(ft, prefix, 1, true) == 1 then
+-- 					avante_window_found = true
+-- 					break
+-- 				end
+-- 			end
+-- 		end
+-- 	end
+-- 	if avante_window_found then
+-- 		if vim.opt.laststatus:get() ~= 3 then
+-- 			vim.opt.laststatus = 3
+-- 		end
+-- 	else
+-- 		if vim.opt.laststatus:get() ~= 1 then
+-- 			vim.opt.laststatus = 1
+-- 		end
+-- 	end
+-- end
+
+-- local function scheduled_update()
+-- 	vim.schedule(update_laststatus_for_avante)
+-- end
 
 vim.api.nvim_create_autocmd("FileType", {
 	group = augroup("AvanteLastStatus"),
 	pattern = "Avante*",
-	callback = update_laststatus_for_avante,
+	callback = update_laststatus_for_avante_sidebar,
 	desc = "Update laststatus on Avante* FileType change",
 })
 
 vim.api.nvim_create_autocmd({ "WinEnter", "WinClosed", "BufWinEnter" }, {
 	group = augroup("AvanteLastStatus"),
 	pattern = "*",
-	callback = update_laststatus_for_avante,
+	callback = update_laststatus_for_avante_sidebar,
 	desc = "Update laststatus on window/buffer changes",
 })
