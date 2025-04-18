@@ -111,7 +111,7 @@ return {
       { "<leader>/", NeoCraft.pick("grep",{ hidden = true }), desc = "Grep (Root Dir)" },
       { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
       { "<leader><space>", NeoCraft.pick("files"), desc = "Find Files (Root Dir)" },
-      { "<space>n", function() Snacks.picker.notifications() end, desc = "Notification History" },
+      { "<leader>h", function() Snacks.picker.notifications() end, desc = "Notification History" },
       { "<space>h", function() Snacks.picker.help() end, desc = "Help Pages" },
       { "<space>r", NeoCraft.pick("oldfiles"), desc = "Recent" },
       { "<space>/", NeoCraft.pick("files"), desc = "Find Files (Root Dir)" },

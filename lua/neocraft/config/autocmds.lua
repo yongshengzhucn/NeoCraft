@@ -134,6 +134,8 @@ vim.api.nvim_create_autocmd({ "CursorMoved" }, {
 	end,
 })
 
+-- avante
+
 local avante_module = nil
 local function get_avante_module()
 	if avante_module ~= nil then
