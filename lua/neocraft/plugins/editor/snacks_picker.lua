@@ -86,8 +86,8 @@ return {
 				win = {
 					input = {
 						keys = {
-							["<a-c>"] = {
-								"toggle_cwd",
+							["<Tab>"] = {
+								"focus_preview",
 								mode = { "n", "i" },
 							},
 						},
@@ -110,11 +110,10 @@ return {
       { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
       { "<leader>/", NeoCraft.pick("grep",{ hidden = true }), desc = "Grep (Root Dir)" },
       { "<leader>:", function() Snacks.picker.command_history() end, desc = "Command History" },
-      { "<leader><space>", NeoCraft.pick("files"), desc = "Find Files (Root Dir)" },
-      { "<leader>h", function() Snacks.picker.notifications() end, desc = "Notification History" },
+      { "<leader>j", function() Snacks.picker.notifications() end, desc = "Notification History" },
       { "<space>h", function() Snacks.picker.help() end, desc = "Help Pages" },
-      { "<space>r", NeoCraft.pick("oldfiles"), desc = "Recent" },
       { "<space>/", NeoCraft.pick("files"), desc = "Find Files (Root Dir)" },
+      { "<space>r", function() Snacks.picker.smart() end, desc = "Recent (smart)", },
       -- find
       { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
       -- { "<leader>fB", function() Snacks.picker.buffers({ hidden = true, nofile = true }) end, desc = "Buffers (all)" },

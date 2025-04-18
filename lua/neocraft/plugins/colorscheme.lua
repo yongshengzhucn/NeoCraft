@@ -44,7 +44,7 @@ return {
 			},
 			custom_highlights = {
 				FloatBorder = { fg = "#cba6f7" },
-				-- NormalFloat = { bg = "#1e1e2e" },
+				NormalFloat = { bg = "#1e1e2e" },
 				-- hl snacks
 				SnacksPickerPrompt = { fg = "#f9e2af" },
 				-- hl CursorMoved url
@@ -69,6 +69,12 @@ return {
 				WhichKey = { fg = "#a6adc8", bg = "#1e1e2e" },
 				WhichKeyNormal = { fg = "#cba6f7", bg = "#1e1e2e" },
 				WhichKeyTitle = { fg = "#cba6f7" },
+				-- avante
+				AvanteInlineHint = { fg = "#94e2d5" },
+				AvanteSidebar = { bg = "#181825" },
+				AvanteSidebarNormal = { bg = "#181825" },
+				AvanteSidebarWinSeparator = { fg = "#181825", bg = "#181825" },
+				AvanteSidebarWinHorizontalSeparator = { fg = "#11111b", bg = "#181825" },
 			},
 		},
 		specs = {
