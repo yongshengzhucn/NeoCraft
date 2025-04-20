@@ -1,3 +1,23 @@
+local function refined_min_keyword_length(ctx, source_name)
+	-- 检查上下文对象和触发信息是否存在
+	if ctx and ctx.trigger and ctx.trigger.initial_character then
+		local trigger_char = ctx.trigger.initial_character
+
+		-- 为 avante_commands 和 avante_files 源配置 '/' 触发
+		if source_name == "avante_commands" or source_name == "avante_files" then
+			if trigger_char == "/" then
+				return 0 -- 输入 '/' 时立即触发
+			end
+		-- 为 avante_mentions 源配置 '@' 触发
+		elseif source_name == "avante_mentions" then
+			if trigger_char == "@" then
+				return 0 -- 输入 '@' 时立即触发
+			end
+		end
+	end
+
+	return 10000
+end
 return {
 	{
 		"yetone/avante.nvim",
@@ -8,7 +28,6 @@ return {
 		opts = {
 			provider = "ollama",
 			ollama = {
-				endpoint = "http://127.0.0.1:11434",
 				model = "qwen2.5-coder:32b",
 			},
 
@@ -156,58 +175,22 @@ return {
 						name = "avante_commands",
 						module = "blink.compat.source",
 						min_keyword_length = function(ctx)
-							if ctx.trigger.kind ~= "trigger_character" then
-								return 10000
-							end
-							local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-							local line = vim.api.nvim_get_current_line()
-
-							if col > 0 and line:sub(col, col) == "/" then
-								if col == 1 or not line:sub(col - 1, col - 1):match("%w") then
-									return 0
-								end
-							end
-							return 10000
+							return refined_min_keyword_length(ctx, "avante_commands")
 						end,
-						opts = {},
 					},
 					avante_files = {
 						name = "avante_files",
 						module = "blink.compat.source",
 						min_keyword_length = function(ctx)
-							if ctx.trigger.kind ~= "trigger_character" then
-								return 10000
-							end
-							local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-							local line = vim.api.nvim_get_current_line()
-
-							if col > 0 and line:sub(col, col) == "/" then
-								if col == 1 or not line:sub(col - 1, col - 1):match("%w") then
-									return 0
-								end
-							end
-							return 10000
+							return refined_min_keyword_length(ctx, "avante_files")
 						end,
-						opts = {},
 					},
 					avante_mentions = {
 						name = "avante_mentions",
 						module = "blink.compat.source",
 						min_keyword_length = function(ctx)
-							if ctx.trigger.kind ~= "trigger_character" then
-								return 10000
-							end
-							local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-							local line = vim.api.nvim_get_current_line()
-
-							if col > 0 and line:sub(col, col) == "@" then
-								if col == 1 or not line:sub(col - 1, col - 1):match("%w") then
-									return 0
-								end
-							end
-							return 10000
+							return refined_min_keyword_length(ctx, "avante_mentions")
 						end,
-						opts = {},
 					},
 				},
 				per_filetype = {

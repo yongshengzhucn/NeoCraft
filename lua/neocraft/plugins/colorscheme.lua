@@ -45,17 +45,17 @@ return {
 			custom_highlights = {
 				FloatBorder = { fg = "#cba6f7" },
 				NormalFloat = { bg = "#1e1e2e" },
-				-- hl snacks
-				SnacksPickerPrompt = { fg = "#f9e2af" },
-				-- hl CursorMoved url
+				-- snacks
+				SnacksPickerPrompt = { fg = "#b4befe" },
+				-- CursorMoved url
 				HighlightCursorUrl = { bg = nil, fg = "#f38ba8" },
-				-- hl TreesitterContext
+				-- TreesitterContext
 				TreesitterContextLineNumber = { fg = "#6c7086", bg = "#1e1e2e" },
 				TreesitterContextBottom = { bg = "#313244" },
-				--hl statusline
+				-- statusline
 				StatusLine = { fg = "#fab387" },
-				--hl noice
-				NoiceCmdlineIcon = { fg = "#94e2d5" },
+				-- noice
+				NoiceCmdlineIcon = { fg = "#b4befe" },
 				NoiceCmdlinePopupBorder = { fg = "#cba6f7" },
 				-- blink
 				BlinkCmpMenu = { bg = "#1e1e2e" },
@@ -75,6 +75,7 @@ return {
 				AvanteSidebarNormal = { bg = "#181825" },
 				AvanteSidebarWinSeparator = { fg = "#181825", bg = "#181825" },
 				AvanteSidebarWinHorizontalSeparator = { fg = "#11111b", bg = "#181825" },
+				AvantePopupHint = { fg = "#fab387", bg = "#181825" },
 			},
 		},
 		specs = {

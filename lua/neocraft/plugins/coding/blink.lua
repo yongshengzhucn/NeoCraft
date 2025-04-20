@@ -38,6 +38,9 @@ return {
 				nerd_font_variant = "mono",
 			},
 			completion = {
+				keyword = {
+					range = "prefix",
+				},
 				accept = {
 					-- experimental auto-brackets support
 					auto_brackets = {
@@ -85,8 +88,6 @@ return {
 
 			keymap = {
 				preset = "enter",
-				-- ["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
-				-- ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
 			},
 		},
 		---@param opts blink.cmp.Config | { sources: { compat: string[] } }
