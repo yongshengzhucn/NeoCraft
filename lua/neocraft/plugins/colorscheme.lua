@@ -75,7 +75,10 @@ return {
 				AvanteSidebarNormal = { bg = "#181825" },
 				AvanteSidebarWinSeparator = { fg = "#181825", bg = "#181825" },
 				AvanteSidebarWinHorizontalSeparator = { fg = "#11111b", bg = "#181825" },
-				AvantePopupHint = { fg = "#fab387", bg = "#181825" },
+				AvantePopupHint = { fg = "#cba6f7", bg = "#181825" },
+				AvanteTitle = { bg = "#a6e3a1", fg = "#1e1e2e" },
+				AvanteSubtitle = { bg = "#94e2d5", fg = "#1E1E2E" },
+				AvanteThirdTitle = { bg = "#313244", fg = "#a6adc8" },
 			},
 		},
 		specs = {

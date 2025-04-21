@@ -81,8 +81,8 @@ map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
 -- map("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window", remap = true })
 
 -- Resize window using <ctrl> arrow keys
-map("n", "<C-Up>", '<cmd>lua NeoCraft.ui.resize("horizontal", -2)<CR>', { desc = "Increase Window Height" })
-map("n", "<C-Down>", '<cmd>lua NeoCraft.ui.resize("horizontal", 2)<CR>', { desc = "Decrease Window Height" })
+map("n", "<C-Up>", '<cmd>lua NeoCraft.ui.resize("horizontal", -2)<CR>', { desc = "Decrease Window Height" })
+map("n", "<C-Down>", '<cmd>lua NeoCraft.ui.resize("horizontal", 2)<CR>', { desc = "Increase Window Height" })
 map("n", "<C-Left>", '<cmd>lua NeoCraft.ui.resize("vertical", -2)<CR>', { desc = "Decrease Window Width" })
 map("n", "<C-Right>", '<cmd>lua NeoCraft.ui.resize("vertical", 2)<CR>', { desc = "Increase Window Width" })
 

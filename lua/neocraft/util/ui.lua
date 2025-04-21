@@ -20,41 +20,28 @@ function M.foldexpr()
 end
 
 M.resize = function(split, delta)
-	local win = vim.api.nvim_get_current_win()
-	local width = vim.api.nvim_win_get_width(win)
-	local height = vim.api.nvim_win_get_height(win)
+	-- 构造命令字符串，确保为正 delta 添加 '+' 号
+	local sign = delta > 0 and "+" or ""
+	local delta_val = tostring(delta) -- 负数会自动带 '-'
+	local command
 
 	if split == "vertical" then
-		local is_left = true
-		for _, w in ipairs(vim.api.nvim_list_wins()) do
-			if w == win then
-				break
-			end
-			if vim.api.nvim_win_get_width(w) > 0 then
-				is_left = not is_left
-			end
-		end
-		if is_left then
-			vim.api.nvim_command("vertical resize " .. tostring(width + delta))
-		else
-			vim.api.nvim_command("vertical resize " .. tostring(width - delta))
-		end
+		-- 'vertical resize' 调整宽度
+		command = "vertical resize " .. sign .. delta_val
 	elseif split == "horizontal" then
-		local is_top = true
-		for _, w in ipairs(vim.api.nvim_list_wins()) do
-			if w == win then
-				break
-			end
-			if vim.api.nvim_win_get_height(w) > 0 then
-				is_top = not is_top
-			end
-		end
-		if is_top then
-			vim.api.nvim_command("resize " .. tostring(height + delta))
-		else
-			vim.api.nvim_command("resize " .. tostring(height - delta))
-		end
+		-- 'resize' 调整高度
+		command = "resize " .. sign .. delta_val
+	else
+		-- 处理无效的 split 参数
+		vim.notify(
+			"NeoCraft Error: Invalid split direction '" .. tostring(split) .. "' in resize function",
+			vim.log.levels.ERROR
+		)
+		return
 	end
+
+	-- 使用 nvim_command 执行
+	vim.api.nvim_command(command)
 end
 
 function M.show_visible_window_buffer_info()
