@@ -26,9 +26,12 @@ return {
 		lazy = false,
 		version = false, -- set this if you want to always pull the latest change
 		opts = {
-			provider = "ollama",
+			provider = "gemini",
 			ollama = {
 				model = "qwen2.5-coder:32b",
+			},
+			gemini = {
+				model = "gemini-2.5-pro-exp-03-25",
 			},
 
 			behaviour = {

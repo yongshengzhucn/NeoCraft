@@ -166,6 +166,6 @@ map("n", "<space>y", "^y$", { desc = "Yank to end of line" })
 map("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })
 map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
 
-vim.keymap.set("n", "<leader>uw", function()
+map("n", "<leader>uw", function()
 	NeoCraft.ui.show_visible_window_buffer_info()
 end, { desc = "Show visible window buffers" })
