@@ -65,7 +65,7 @@ return {
 		"folke/snacks.nvim",
 		opts = {
 			picker = {
-				prompt = " ",
+				prompt = " ",
 				-- layout = function(source)
 				-- 	vim.notify("source: " .. source)
 				-- 	local layout_config = {}

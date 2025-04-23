@@ -2,6 +2,8 @@
 
 local map = NeoCraft.safe_keymap_set
 
+-- stylua: ignore start
+
 -- better up/down
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
@@ -26,19 +28,10 @@ map("v", "<A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", {
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 map("n", "<Space>b", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
-map("n", "bd", function()
-	Snacks.bufdelete()
-end, { desc = "Delete buffer" })
-map("n", "bo", function()
-	Snacks.bufdelete.other()
-end, { desc = "Delete Other Buffers" })
+map("n", "bd", function() Snacks.bufdelete() end, { desc = "Delete buffer" }) map("n", "bo", function() Snacks.bufdelete.other() end, { desc = "Delete Other Buffers" })
 
 -- Clear search and stop snippet on escape
-map({ "i", "n", "s" }, "<esc>", function()
-	vim.cmd("noh")
-	NeoCraft.cmp.actions.snippet_stop()
-	return "<esc>"
-end, { expr = true, desc = "Escape and Clear hlsearch" })
+map({ "i", "n", "s" }, "<esc>", function() vim.cmd("noh") NeoCraft.cmp.actions.snippet_stop() return "<esc>" end, { expr = true, desc = "Escape and Clear hlsearch" })
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
@@ -50,24 +43,14 @@ map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result
 
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
-map(
-	"n",
-	"<leader>r",
-	"<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-	{ desc = "Redraw/Clear hlsearch/Diff Update" }
-)
+map( "n", "<leader>r", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { desc = "Redraw/Clear hlsearch/Diff Update" })
 
 -- better indenting
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
 -- quickfix and diagnostics
-map("n", "<leader>xd", function()
-	vim.diagnostic.open_float(nil, {
-		focusable = false,
-		border = "rounded",
-	})
-end, { desc = "Line Diagnostics" })
+map("n", "<leader>xd", function() vim.diagnostic.open_float(nil, { focusable = false, border = "rounded", }) end, { desc = "Line Diagnostics" })
 
 -- windows
 map("n", "wd", "<C-W>c", { desc = "Delete Window", remap = true })
@@ -81,8 +64,8 @@ map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
 -- map("n", "<C-l>", "<C-w>l", { desc = "Go to Right Window", remap = true })
 
 -- Resize window using <ctrl> arrow keys
-map("n", "<C-Up>", '<cmd>lua NeoCraft.ui.resize("horizontal", -2)<CR>', { desc = "Decrease Window Height" })
-map("n", "<C-Down>", '<cmd>lua NeoCraft.ui.resize("horizontal", 2)<CR>', { desc = "Increase Window Height" })
+map("n", "<C-Up>", '<cmd>lua NeoCraft.ui.resize("horizontal", 2)<CR>', { desc = "Increase Window Height" })
+map("n", "<C-Down>", '<cmd>lua NeoCraft.ui.resize("horizontal", -2)<CR>', { desc = "Decrease Window Height" })
 map("n", "<C-Left>", '<cmd>lua NeoCraft.ui.resize("vertical", -2)<CR>', { desc = "Decrease Window Width" })
 map("n", "<C-Right>", '<cmd>lua NeoCraft.ui.resize("vertical", 2)<CR>', { desc = "Increase Window Width" })
 
@@ -95,37 +78,16 @@ map("n", "td", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 -- lazygit
 
 if vim.fn.executable("lazygit") == 1 then
-	map("n", "<leader>gg", function()
-		Snacks.lazygit({ cwd = NeoCraft.root.git() })
-	end, { desc = "Lazygit (Root Dir)" })
-	map("n", "<leader>gG", function()
-		Snacks.lazygit()
-	end, { desc = "Lazygit (cwd)" })
-	map("n", "<leader>gf", function()
-		Snacks.picker.git_log_file()
-	end, { desc = "Git Current File History" })
-	map("n", "<leader>gl", function()
-		Snacks.picker.git_log({ cwd = NeoCraft.root.git() })
-	end, { desc = "Git Log" })
-	map("n", "<leader>gL", function()
-		Snacks.picker.git_log()
-	end, { desc = "Git Log (cwd)" })
+  map("n", "<leader>gg", function() Snacks.lazygit({ cwd = NeoCraft.root.git() }) end, { desc = "Lazygit (Root Dir)" })
+  map("n", "<leader>gG", function() Snacks.lazygit() end, { desc = "Lazygit (cwd)" })
+  map("n", "<leader>gf", function() Snacks.picker.git_log_file() end, { desc = "Git Current File History" })
+  map("n", "<leader>gl", function() Snacks.picker.git_log({ cwd = NeoCraft.root.git() }) end, { desc = "Git Log" })
+  map("n", "<leader>gL", function() Snacks.picker.git_log() end, { desc = "Git Log (cwd)" })
 end
 
-map("n", "<leader>gb", function()
-	Snacks.picker.git_log_line()
-end, { desc = "Git Blame Line" })
-map({ "n", "x" }, "<leader>gB", function()
-	Snacks.gitbrowse()
-end, { desc = "Git Browse (open)" })
-map({ "n", "x" }, "<leader>gY", function()
-	Snacks.gitbrowse({
-		open = function(url)
-			vim.fn.setreg("+", url)
-		end,
-		notify = false,
-	})
-end, { desc = "Git Browse (copy)" })
+map("n", "<leader>gb", function() Snacks.picker.git_log_line() end, { desc = "Git Blame Line" })
+map({ "n", "x" }, "<leader>gB", function() Snacks.gitbrowse() end, { desc = "Git Browse (open)" })
+map({ "n", "x" }, "<leader>gY", function() Snacks.gitbrowse({ open = function(url) vim.fn.setreg("+", url) end, notify = false, }) end, { desc = "Git Browse (copy)" })
 
 -- lazy
 map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
@@ -141,22 +103,20 @@ map("n", "<space>w", "<cmd>update<cr>", { desc = "Save Current buffer" })
 
 -- Lua cmdline
 map("n", "<space>l", function()
-	vim.fn.feedkeys(vim.api.nvim_replace_termcodes(":lua ", true, false, true))
+  vim.fn.feedkeys(vim.api.nvim_replace_termcodes(":lua ", true, false, true))
 end, { desc = "Lua cmdline" })
 
 -- manual formatting
 map({ "n", "v" }, "<space>f", "<cmd>LazyFormat<cr>", { desc = "Format selection or buffer" })
 
 -- browse url
-map("n", "<space>o", function()
-	NeoCraft.browse.open()
-end, { desc = "Open url under cursor" })
+map("n", "<space>o", function() NeoCraft.browse.open() end, { desc = "Open url under cursor" })
 
 Snacks.toggle.profiler():map("<leader>up")
 
 -- toggle lsp inlay hints
 if vim.lsp.inlay_hint then
-	Snacks.toggle.inlay_hints():map("<leader>uh")
+  Snacks.toggle.inlay_hints():map("<leader>uh")
 end
 
 -- better y
@@ -166,6 +126,11 @@ map("n", "<space>y", "^y$", { desc = "Yank to end of line" })
 map("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })
 map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
 
-map("n", "<leader>uw", function()
-	NeoCraft.ui.show_visible_window_buffer_info()
-end, { desc = "Show visible window buffers" })
+map("n", "<leader>uw", function() NeoCraft.ui.show_visible_window_buffer_info() end, { desc = "Show visible window buffers" })
+
+-- floating terminal
+map("n", "<space>t", function() Snacks.terminal() end, { desc = "Terminal (cwd)" })
+map("n", "<c-/>",      function() Snacks.terminal(nil, { cwd = NeoCraft.root() }) end, { desc = "Terminal (Root Dir)" })
+
+-- Terminal Mappings
+map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })

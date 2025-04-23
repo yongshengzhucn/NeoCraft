@@ -47,13 +47,15 @@ return {
 				NormalFloat = { bg = "#1e1e2e" },
 				-- snacks
 				SnacksPickerPrompt = { fg = "#b4befe" },
+				-- SnacksPickerBorder = { fg = "#cba6f7", bg = "#181825" },
+
 				-- CursorMoved url
 				HighlightCursorUrl = { bg = nil, fg = "#f38ba8" },
 				-- TreesitterContext
 				TreesitterContextLineNumber = { fg = "#6c7086", bg = "#1e1e2e" },
 				TreesitterContextBottom = { bg = "#313244" },
 				-- statusline
-				StatusLine = { fg = "#fab387" },
+				StatusLine = { fg = "#cba6f7" },
 				-- noice
 				NoiceCmdlineIcon = { fg = "#b4befe" },
 				NoiceCmdlinePopupBorder = { fg = "#cba6f7" },

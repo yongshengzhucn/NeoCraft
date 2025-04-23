@@ -49,12 +49,12 @@ opt.cursorline = true -- Enable highlighting of the current line
 opt.expandtab = true -- Use spaces instead of tabs
 -- opt.fileencoding = "utf-8"
 opt.fillchars = {
-	foldopen = "",
-	foldclose = "",
-	fold = " ",
-	foldsep = " ",
-	diff = "╱",
-	eob = " ",
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
 }
 opt.foldexpr = "v:lua.require'neocraft.util'.ui.foldexpr()"
 opt.foldlevel = 99
@@ -69,7 +69,7 @@ opt.grepprg = "rg --vimgrep"
 opt.ignorecase = true -- Ignore case
 opt.inccommand = "split"
 opt.jumpoptions = "view"
-opt.laststatus = 1
+opt.laststatus = 0
 opt.linebreak = true -- Wrap lines at convenient points
 opt.list = true -- Show some invisible characters (tabs...
 opt.listchars:append("tab:  ")
