@@ -51,13 +51,7 @@ return {
         SnacksPickerLazygitTitle = { fg = "#1e1e2e", bg = "#f38ba8" },
 
         SnacksPickerTitle = { fg = "#1e1e2e", bg = "#cba6f7" },
-        -- SnacksPickerInputBorder = { fg = "#313244", bg = "#313244" },
-        -- SnacksPickerInput = { fg = "#cdd6f4", bg = "#313244" },
-        -- SnacksPickerBoxBorder = { fg = "#313244", bg = "#313244" },
-
-        SnacksPickerListCursorLine = {
-          bg = "#313244",
-        },
+        SnacksPickerListCursorLine = { bg = "#313244" },
 
         SnacksPickerPreview = { bg = "#181825" },
         SnacksPickerPreviewTitle = { fg = "#1e1e2e", bg = "#a6e3a1" },
@@ -95,6 +89,10 @@ return {
         AvanteTitle = { bg = "#a6e3a1", fg = "#1e1e2e" },
         AvanteSubtitle = { bg = "#94e2d5", fg = "#1E1E2E" },
         AvanteThirdTitle = { bg = "#313244", fg = "#a6adc8" },
+
+        -- edgy
+        EdgyNormal = { bg = "#181825", fg = "#a6adc8" },
+        EdgyTitle = { bold = true, cterm = { bold = true }, fg = "#1E1E2E", bg = "#cba6f7" },
       },
     },
     specs = {

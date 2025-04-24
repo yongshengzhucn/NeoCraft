@@ -153,6 +153,8 @@ return {
         lazygit = {
           position = "float",
           relative = "editor",
+          width = 0.9,
+          height = 0.9,
           border = "solid",
           title = "  Lazygit ",
           title_pos = "center",

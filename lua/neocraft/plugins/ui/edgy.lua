@@ -14,21 +14,22 @@ return {
               return vim.api.nvim_win_get_config(win).relative == ""
             end,
           },
-          { ft = "trouble", title = "Trouble", size = { height = 0.4 } },
+          { ft = "trouble", title = " Trouble  ", size = { height = 0.4 } },
           { ft = "qf", title = "QuickFix" },
           {
             ft = "help",
+            title = " 󰋖 Help  ",
             size = { height = 20 },
             -- don't open help files in edgy that we're editing
             filter = function(buf)
               return vim.bo[buf].buftype == "help"
             end,
           },
-          { title = "Neotest Output", ft = "neotest-output-panel", size = { height = 15 } },
+          { title = " Neotest Output  ", ft = "neotest-output-panel", size = { height = 15 } },
         },
 
         right = {
-          { title = "Grug Far", ft = "grug-far", size = { width = 0.4 } },
+          { title = " Grug Far  ", ft = "grug-far", size = { width = 0.4 } },
         },
 
         keys = {
