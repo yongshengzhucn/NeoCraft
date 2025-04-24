@@ -149,22 +149,30 @@ return {
       statuscolumn = { enabled = false }, -- we set this in options.lua
       toggle = { map = NeoCraft.safe_keymap_set },
       words = { enabled = true },
-      terminal = {
-        enabled = true,
-        win = {
+      styles = {
+        lazygit = {
           position = "float",
           relative = "editor",
           border = "solid",
-          width = 0.7,
-          height = 0.7,
-          style = "minimal",
-          title = "Terminal",
+          title = "  Lazygit ",
           title_pos = "center",
+          wo = {
+            winhighlight = "FloatTitle:SnacksPickerLazygitTitle",
+          },
         },
-        shell = vim.o.shell,
-        auto_insert = true,
-        close_on_exit = true,
-        interactive = true,
+
+        terminal = {
+          position = "float",
+          relative = "editor",
+          width = 0.8,
+          height = 0.8,
+          border = "solid",
+          title = "  Terminal ",
+          title_pos = "center",
+          wo = {
+            winhighlight = "FloatTitle:SnacksPickerTerminalTitle",
+          },
+        },
       },
     },
     -- stylua: ignore

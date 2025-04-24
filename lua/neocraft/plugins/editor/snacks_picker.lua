@@ -2,109 +2,139 @@
 
 ---@type LazyPicker
 local picker = {
-	name = "snacks",
-	commands = {
-		files = "files",
-		live_grep = "grep",
-		oldfiles = "recent",
-	},
+  name = "snacks",
+  commands = {
+    files = "files",
+    live_grep = "grep",
+    oldfiles = "recent",
+  },
 
-	---@param source string
-	---@param opts? snacks.picker.Config
-	open = function(source, opts)
-		return Snacks.picker.pick(source, opts)
-	end,
+  ---@param source string
+  ---@param opts? snacks.picker.Config
+  open = function(source, opts)
+    return Snacks.picker.pick(source, opts)
+  end,
 }
 ---TODO: wait for update to fix some known bugs
 if not NeoCraft.pick.register(picker) then
-	return {}
+  return {}
 end
 
 local ivy_layout_sources = {
-	"grep",
-	"grep_buffers",
-	"todo_comments",
-	"lsp_config",
-	"lsp_definitions",
-	"lsp_references",
-	"lsp_implementations",
-	"lsp_type_definitions",
-	"lsp_symbols",
-	"lsp_workspace_symbols",
-	"notifications",
-	"git_stash",
-	"git_status",
-	"git_diff",
-	"live_grep",
-	"lines",
-	"grep_buffers",
-	"grep_word",
-	"lazy",
-	"registers",
-	"autocmds",
-	"commands",
-	"undo",
-	"qflist",
-	"resume",
-	"marks",
-	"man",
-	"loclist",
-	"keymaps",
-	"jumps",
-	"highlights",
-	"help",
-	"diagnostics_buffer",
-	"diagnostics",
+  "grep",
+  "grep_buffers",
+  "todo_comments",
+  "lsp_config",
+  "lsp_definitions",
+  "lsp_references",
+  "lsp_implementations",
+  "lsp_type_definitions",
+  "lsp_symbols",
+  "lsp_workspace_symbols",
+  "notifications",
+  "git_stash",
+  "git_status",
+  "git_diff",
+  "live_grep",
+  "lines",
+  "grep_buffers",
+  "grep_word",
+  "lazy",
+  "registers",
+  "autocmds",
+  "commands",
+  "undo",
+  "qflist",
+  "resume",
+  "marks",
+  "man",
+  "loclist",
+  "keymaps",
+  "jumps",
+  "highlights",
+  "help",
+  "diagnostics_buffer",
+  "diagnostics",
 }
 local hide_preview_sources = { "files", "buffers", "oldfiles", "config_files", "git_files", "recent", "projects" }
 
 return {
-	desc = "Fast and modern file picker",
-	recommended = true,
-	{
-		"folke/snacks.nvim",
-		opts = {
-			picker = {
-				prompt = " ",
-				-- layout = function(source)
-				-- 	vim.notify("source: " .. source)
-				-- 	local layout_config = {}
-				-- 	layout_config.preset = "default"
-				-- 	for _, ils in ipairs(ivy_layout_sources) do
-				-- 		if string.find(source, ils) then
-				-- 			layout_config.preset = "ivy"
-				-- 			break
-				-- 		end
-				-- 	end
-				-- 	for _, hps in ipairs(hide_preview_sources) do
-				-- 		if string.find(source, hps) then
-				-- 			layout_config.hidden = { "preview" }
-				-- 		end
-				-- 	end
-				-- 	return layout_config
-				-- end,
-				win = {
-					input = {
-						keys = {
-							["<Tab>"] = {
-								"focus_preview",
-								mode = { "n", "i" },
-							},
-						},
-					},
-				},
-				actions = {
-					---@param p snacks.Picker
-					toggle_cwd = function(p)
-						local root = NeoCraft.root({ buf = p.input.filter.current_buf, normalize = true })
-						local cwd = vim.fs.normalize((vim.uv or vim.loop).cwd() or ".")
-						local current = p:cwd()
-						p:set_cwd(current == root and cwd or root)
-						p:find()
-					end,
-				},
-			},
-		},
+  desc = "Fast and modern file picker",
+  recommended = true,
+  {
+    "folke/snacks.nvim",
+    opts = {
+      picker = {
+        prompt = "  ",
+        layout = {
+          preset = "neocraft",
+        },
+        -- layout = function(source)
+        -- 	vim.notify("source: " .. source)
+        -- 	local layout_config = {}
+        -- 	layout_config.preset = "default"
+        -- 	for _, ils in ipairs(ivy_layout_sources) do
+        -- 		if string.find(source, ils) then
+        -- 			layout_config.preset = "ivy"
+        -- 			break
+        -- 		end
+        -- 	end
+        -- 	for _, hps in ipairs(hide_preview_sources) do
+        -- 		if string.find(source, hps) then
+        -- 			layout_config.hidden = { "preview" }
+        -- 		end
+        -- 	end
+        -- 	return layout_config
+        -- end,
+
+        sources = {
+          files = {
+            layout = {
+              preset = "neocraft",
+            },
+          },
+        },
+        layouts = {
+          neocraft = {
+            layout = {
+              box = "horizontal",
+              width = 0.8,
+              min_width = 120,
+              height = 0.8,
+              {
+                box = "vertical",
+                border = "solid",
+                title = " {title} {live} {flags} ",
+                { win = "input", height = 1, border = "solid" },
+                { win = "list", border = "hpad" },
+              },
+              { win = "preview", title = "{preview}", border = "solid", width = 0.5 },
+            },
+          },
+        },
+
+        win = {
+          input = {
+            keys = {
+              ["<Tab>"] = {
+                "focus_preview",
+                mode = { "n", "i" },
+              },
+            },
+          },
+        },
+        actions = {
+          ---@param p snacks.Picker
+          toggle_cwd = function(p)
+            local root = NeoCraft.root({ buf = p.input.filter.current_buf, normalize = true })
+            local cwd = vim.fs.normalize((vim.uv or vim.loop).cwd() or ".")
+            local current = p:cwd()
+            p:set_cwd(current == root and cwd or root)
+            p:find()
+          end,
+        },
+      },
+    },
     -- stylua: ignore
     keys = {
       { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
@@ -156,37 +186,37 @@ return {
       { "<leader>sq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
       { "<leader>su", function() Snacks.picker.undo() end, desc = "Undotree" },
     },
-	},
-	{
-		"folke/snacks.nvim",
-		opts = function(_, opts)
-			if NeoCraft.has("trouble.nvim") then
-				return vim.tbl_deep_extend("force", opts or {}, {
-					picker = {
-						actions = {
-							trouble_open = function(...)
-								return require("trouble.sources.snacks").actions.trouble_open.action(...)
-							end,
-						},
-						win = {
-							input = {
-								keys = {
-									["<a-t>"] = {
-										"trouble_open",
-										mode = { "n", "i" },
-									},
-								},
-							},
-						},
-					},
-				})
-			end
-		end,
-	},
-	{
-		"neovim/nvim-lspconfig",
-		opts = function()
-			local Keys = require("neocraft.plugins.lsp.keymaps").get()
+  },
+  {
+    "folke/snacks.nvim",
+    opts = function(_, opts)
+      if NeoCraft.has("trouble.nvim") then
+        return vim.tbl_deep_extend("force", opts or {}, {
+          picker = {
+            actions = {
+              trouble_open = function(...)
+                return require("trouble.sources.snacks").actions.trouble_open.action(...)
+              end,
+            },
+            win = {
+              input = {
+                keys = {
+                  ["<a-t>"] = {
+                    "trouble_open",
+                    mode = { "n", "i" },
+                  },
+                },
+              },
+            },
+          },
+        })
+      end
+    end,
+  },
+  {
+    "neovim/nvim-lspconfig",
+    opts = function()
+      local Keys = require("neocraft.plugins.lsp.keymaps").get()
       -- stylua: ignore
       vim.list_extend(Keys, {
         { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition", has = "definition" },
@@ -196,57 +226,56 @@ return {
         { "<leader>ss", function() Snacks.picker.lsp_symbols({ filter = NeoCraft.config.kind_filter }) end, desc = "LSP Symbols", has = "documentSymbol" },
         { "<leader>sS", function() Snacks.picker.lsp_workspace_symbols({ filter = NeoCraft.config.kind_filter }) end, desc = "LSP Workspace Symbols", has = "workspace/symbols" },
       })
-		end,
-	},
-	{
-		"folke/todo-comments.nvim",
-		optional = true,
+    end,
+  },
+  {
+    "folke/todo-comments.nvim",
+    optional = true,
     -- stylua: ignore
     keys = {
       { "<leader>st", function() Snacks.picker.todo_comments() end, desc = "Todo" },
       { "<leader>sT", function () Snacks.picker.todo_comments({ keywords = { "TODO", "FIX", "FIXME" } }) end, desc = "Todo/Fix/Fixme" },
     },
-	},
-	{
-		"folke/flash.nvim",
-		optional = true,
-		specs = {
-			{
-				"folke/snacks.nvim",
-				opts = {
-					picker = {
-						win = {
-							input = {
-								keys = {
-									["<a-s>"] = { "flash", mode = { "n", "i" } },
-									["s"] = { "flash" },
-								},
-							},
-						},
-						actions = {
-							flash = function(picker)
-								require("flash").jump({
-									pattern = "^",
-									label = { after = { 0, 0 } },
-									search = {
-										mode = "search",
-										exclude = {
-											function(win)
-												return vim.bo[vim.api.nvim_win_get_buf(win)].filetype
-													~= "snacks_picker_list"
-											end,
-										},
-									},
-									action = function(match)
-										local idx = picker.list:row2idx(match.pos[1])
-										picker.list:_move(idx, true, true)
-									end,
-								})
-							end,
-						},
-					},
-				},
-			},
-		},
-	},
+  },
+  {
+    "folke/flash.nvim",
+    optional = true,
+    specs = {
+      {
+        "folke/snacks.nvim",
+        opts = {
+          picker = {
+            win = {
+              input = {
+                keys = {
+                  ["<a-s>"] = { "flash", mode = { "n", "i" } },
+                  ["s"] = { "flash" },
+                },
+              },
+            },
+            actions = {
+              flash = function(picker)
+                require("flash").jump({
+                  pattern = "^",
+                  label = { after = { 0, 0 } },
+                  search = {
+                    mode = "search",
+                    exclude = {
+                      function(win)
+                        return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "snacks_picker_list"
+                      end,
+                    },
+                  },
+                  action = function(match)
+                    local idx = picker.list:row2idx(match.pos[1])
+                    picker.list:_move(idx, true, true)
+                  end,
+                })
+              end,
+            },
+          },
+        },
+      },
+    },
+  },
 }

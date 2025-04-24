@@ -1,6 +1,6 @@
 -- Define colors for different modes (using Catppuccin Mocha palette examples)
 local mode_colors = {
-  n = "#9399b2", -- Normal mode: Overlay 2
+  n = "#a6adc8", -- Normal mode: Overlay 2
   i = "#a6e3a1", -- Insert mode: Green
   v = "#f9e2af", -- Visual mode: Yellow
   V = "#f9e2af", -- Visual Line mode: Yellow
@@ -9,7 +9,7 @@ local mode_colors = {
   r = "#f5c2e7", -- Replace mode: Pink
   t = "#94e2d5", -- Terminal mode: Teal
   -- Add other modes if needed (e.g., s, S, R)
-  default = "#9399b2", -- Default/fallback: Lavender (original color)
+  default = "#a6adc8", -- Default/fallback: Lavender (original color)
 }
 
 local modified_color = "#f38ba8"
