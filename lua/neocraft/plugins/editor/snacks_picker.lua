@@ -65,9 +65,9 @@ return {
     "folke/snacks.nvim",
     opts = {
       picker = {
-        prompt = "  ",
+        prompt = "    ",
         layout = {
-          preset = "neocraft",
+          preset = "telescope-custom",
         },
         -- layout = function(source)
         -- 	vim.notify("source: " .. source)
@@ -87,28 +87,56 @@ return {
         -- 	return layout_config
         -- end,
 
+        ui_select = true,
         sources = {
-          files = {
+          select = {
             layout = {
-              preset = "neocraft",
+              preset = "telescope-custom-select",
             },
           },
         },
         layouts = {
-          neocraft = {
+          ["telescope-custom"] = {
+            reverse = false,
             layout = {
               box = "horizontal",
+              backdrop = true,
               width = 0.8,
-              min_width = 120,
-              height = 0.8,
+              height = 0.9,
+              border = "none",
               {
                 box = "vertical",
-                border = "solid",
-                title = " {title} {live} {flags} ",
-                { win = "input", height = 1, border = "solid" },
-                { win = "list", border = "hpad" },
+                {
+                  win = "input",
+                  height = 1,
+                  border = "rounded",
+                  title = "{title} {live} {flags}",
+                  title_pos = "center",
+                },
+                { win = "list", border = "rounded" },
               },
-              { win = "preview", title = "{preview}", border = "solid", width = 0.5 },
+              { win = "preview", title = "{preview}", border = "rounded", width = 0.53 },
+            },
+          },
+          ["telescope-custom-select"] = {
+            reverse = false,
+            layout = {
+              box = "horizontal",
+              backdrop = true,
+              width = 0.5,
+              height = 2,
+              border = "none",
+              {
+                box = "vertical",
+                {
+                  win = "input",
+                  height = 1,
+                  border = "rounded",
+                  title = "{title} {live} {flags}",
+                  title_pos = "center",
+                },
+                { win = "list", border = "rounded", height = 30 },
+              },
             },
           },
         },

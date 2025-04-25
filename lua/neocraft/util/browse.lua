@@ -1,7 +1,7 @@
 ---@class neocraft.util.browse
 local M = {}
 
-local url_pattern = "(https?://[%w-_%.%?%.:/%+=&%%@]+)"
+local url_pattern = "(https?://[%w%.%-_]+[:%d]*[/%w%.%-_~!@#$%%&=+]*[%?]?[=%w%.%-_~!@#$%%&/]*[#]?[=%w%.%-_~!@#$%%&/]*)"
 
 local extract_url = function(line)
   local url = string.match(line, url_pattern)
