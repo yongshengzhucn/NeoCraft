@@ -58,9 +58,9 @@ return {
           SnacksPickerPreviewBorder = { fg = colors.mantle, bg = colors.mantle },
           SnacksPickerInput = { fg = colors.text, bg = colors.surface0 },
           SnacksPickerInputBorder = { fg = colors.surface0, bg = colors.surface0 },
+          SnacksPickerList = { bg = colors.base },
           SnacksPickerListBorder = { fg = colors.base, bg = colors.base },
           SnacksPickerBoxBorder = { fg = colors.mauve, bg = colors.base },
-          -- snacks
           -- CursorMoved url
           HighlightCursorUrl = { bg = colors.none, fg = colors.red },
           -- TreesitterContext
