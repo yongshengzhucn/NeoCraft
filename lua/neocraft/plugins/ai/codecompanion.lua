@@ -32,13 +32,4 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
   },
-  {
-    -- Make sure to set this up properly if you have lazy=true
-    "MeanderingProgrammer/render-markdown.nvim",
-    optional = true,
-    opts = {
-      file_types = { "codecompanion" },
-    },
-    ft = { "codecompanion" },
-  },
 }

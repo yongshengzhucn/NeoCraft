@@ -96,6 +96,14 @@ return {
           -- edgy
           EdgyNormal = { bg = colors.mantle, fg = colors.subtext0 },
           EdgyTitle = { bold = true, cterm = { bold = true }, fg = colors.base, bg = colors.mauve },
+
+          -- codecompanion
+          CodeCompanionChatHeader = { fg = colors.yellow },
+          CodeCompanionChatTokens = { fg = colors.rosewater },
+          CodeCompanionChatTool = { fg = colors.teal },
+          CodeCompanionChatToolGroups = { fg = colors.lavender },
+          CodeCompanionChatVariable = { fg = colors.sky },
+          CodeCompanionVirtualText = { fg = colors.overlay0 },
         }
       end,
     },
