@@ -8,7 +8,7 @@ return {
         animate = { enabled = false },
         bottom = {
           {
-            ft = "noice",
+            ft = " noice  ",
             size = { height = 0.4 },
             filter = function(buf, win)
               return vim.api.nvim_win_get_config(win).relative == ""

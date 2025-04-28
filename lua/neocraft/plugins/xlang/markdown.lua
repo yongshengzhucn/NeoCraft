@@ -78,7 +78,9 @@ return {
 
   {
     "MeanderingProgrammer/render-markdown.nvim",
+    opts_extend = { "file_types" },
     opts = {
+      file_types = { "markdown", "norg", "rmd", "org", "codecompanion" },
       code = {
         sign = false,
         width = "block",
@@ -86,13 +88,13 @@ return {
       },
       heading = {
         sign = false,
-        icons = {},
+        icons = { "󰼏 ", "󰼐 ", "󰼑 ", "󰼒 ", "󰼓 ", "󰼔 " },
       },
       checkbox = {
         enabled = false,
       },
     },
-    ft = { "markdown", "norg", "rmd", "org", "codecompanion" },
+    -- ft = { "markdown", "norg", "rmd", "org", "codecompanion" },
     config = function(_, opts)
       require("render-markdown").setup(opts)
       Snacks.toggle({

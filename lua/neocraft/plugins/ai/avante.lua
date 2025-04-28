@@ -126,9 +126,9 @@ return {
         opts = {
           file_types = { "Avante" },
         },
-        ft = function(_, ft)
-          vim.list_extend(ft, { "Avante" })
-        end,
+        -- ft = function(_, ft)
+        --   vim.list_extend(ft, { "Avante" })
+        -- end,
       },
     },
     keys = {

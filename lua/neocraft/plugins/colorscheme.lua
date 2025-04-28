@@ -69,7 +69,7 @@ return {
           -- statusline
           StatusLine = { fg = colors.mauve },
           -- noice
-          NoiceCmdlineIcon = { fg = colors.blue },
+          NoiceCmdlineIcon = { fg = colors.mauve },
           NoiceCmdlinePopupBorder = { fg = colors.mauve },
           -- blink
           BlinkCmpMenu = { bg = colors.base },
