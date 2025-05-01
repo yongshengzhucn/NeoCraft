@@ -130,7 +130,7 @@ map("n", "<leader>uw", function() NeoCraft.ui.show_visible_window_buffer_info() 
 
 -- floating terminal
 map("n", "<space>t", function() Snacks.terminal() end, { desc = "Terminal (cwd)" })
-map("n", "<c-/>",      function() Snacks.terminal(nil, { cwd = NeoCraft.root() }) end, { desc = "Terminal (Root Dir)" })
+map("n", "<c-/>",      function() Snacks.terminal(nil, { cwd = NeoCraft.root.bufdir() }) end, { desc = "Terminal (Current Buffer Dir)" })
 
 -- Terminal Mappings
 map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })

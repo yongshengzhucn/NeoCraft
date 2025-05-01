@@ -202,4 +202,46 @@ function M.pretty_path(opts)
   return ""
 end
 
+--- Gets the directory path for the given buffer, with special handling for oil buffers.
+--- All returned paths are normalized using M.realpath.
+--- @param buf? number | nil Buffer number. Defaults to the current buffer if nil or 0.
+--- @return string? The normalized directory path, or nil if it cannot be determined.
+function M.bufdir(buf)
+  buf = (buf == nil or buf == 0) and vim.api.nvim_get_current_buf() or buf
+  local path = vim.api.nvim_buf_get_name(buf) -- Get the original buffer path name
+
+  -- If the path is empty, the buffer has no associated file/directory, return nil
+  if not path or path == "" then
+    return nil
+  end
+
+  local ft = vim.bo[buf].filetype -- Get the buffer's filetype
+  local oil_prefix = "oil://"
+
+  local final_dir_path = nil
+
+  -- Check if the filetype is "oil" and the path starts with "oil://"
+  if ft == "oil" and path:sub(1, #oil_prefix) == oil_prefix then
+    -- 1. Extract the directory part after oil://
+    local extracted_dir = path:sub(#oil_prefix + 1)
+    -- 2. Use M.realpath to normalize the extracted directory path
+    --    This handles cases like `~` and unifies path separators
+    final_dir_path = M.realpath(extracted_dir)
+  else
+    -- For regular files or other cases (including oil buffers without the prefix)
+    -- 1. First, get the canonicalized, absolute path of the file itself
+    local real_file_path = M.realpath(path)
+    if real_file_path then
+      -- 2. Extract the directory part from the canonicalized file path
+      local extracted_dir = vim.fn.fnamemodify(real_file_path, ":h")
+      -- 3. Use M.realpath again on the extracted directory to ensure it's also normalized
+      --    (e.g., handles cases where fnamemodify(..., ":h") might return ".")
+      final_dir_path = M.realpath(extracted_dir)
+    end
+  end
+
+  -- Return the final normalized directory path, or nil if an error occurred
+  return final_dir_path
+end
+
 return M
