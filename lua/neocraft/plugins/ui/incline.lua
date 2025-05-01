@@ -58,12 +58,12 @@ return {
           end
 
           if buftype == "nofile" then
-            category, filename, separator = "extension", "[No Name]", "/"
+            category, filename, separator = "extension", "[Scratch Buffer]", "/"
           end
 
           if filename == "" then
-            NeoCraft.warn("Not found filename for buffer: " .. buf)
-            category, filename, separator = "extension", "[Special Buffer]", "/"
+            NeoCraft.warn("Not found filename for buffer: [" .. buf .. "]")
+            category, filename, separator = "extension", "[No Name]", "/"
           end
 
           local ft_icon, ft_hl
