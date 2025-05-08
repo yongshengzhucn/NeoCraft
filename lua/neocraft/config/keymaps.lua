@@ -112,12 +112,14 @@ map({ "n", "v" }, "<space>f", "<cmd>LazyFormat<cr>", { desc = "Format selection 
 -- browse url
 map("n", "<space>o", function() NeoCraft.browse.open() end, { desc = "Open url under cursor" })
 
+-- toggle
 Snacks.toggle.profiler():map("<leader>up")
-
+map("n", "<leader>uw", function() NeoCraft.ui.show_visible_window_buffer_info() end, { desc = "Show visible window buffers" })
 -- toggle lsp inlay hints
-if vim.lsp.inlay_hint then
-  Snacks.toggle.inlay_hints():map("<leader>uh")
-end
+if vim.lsp.inlay_hint then Snacks.toggle.inlay_hints():map("<leader>uh") end
+NeoCraft.format.snacks_toggle(true):map("<leader>uf")
+
+
 
 -- better y
 map("n", "<space>y", "^y$", { desc = "Yank to end of line" })
@@ -126,7 +128,6 @@ map("n", "<space>y", "^y$", { desc = "Yank to end of line" })
 map("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })
 map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
 
-map("n", "<leader>uw", function() NeoCraft.ui.show_visible_window_buffer_info() end, { desc = "Show visible window buffers" })
 
 -- floating terminal
 map("n", "<space>t", function() Snacks.terminal() end, { desc = "Terminal (cwd)" })
@@ -134,3 +135,9 @@ map("n", "<c-/>",      function() Snacks.terminal(nil, { cwd = NeoCraft.root.buf
 
 -- Terminal Mappings
 map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+
+-- copy current file name
+map("n", "<space>x", function ()
+  local filename = vim.fn.expand('%:t')
+  vim.fn.system('echo -n ' .. filename .. ' | pbcopy')
+end, { desc = "Copy Current File Name" })
