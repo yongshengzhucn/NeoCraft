@@ -75,7 +75,7 @@ return {
           local ft_color_int = vim.api.nvim_get_hl(0, { name = ft_hl }).fg
           local ft_color = ft_color_int and f(ft_color_int) or "#6c7086"
 
-          local modified = vim.bo[props.buf].modified
+          local modified = vim.api.nvim_get_option_value("modified", { buf = props.buf })
 
           local mode_info = vim.api.nvim_get_mode()
           local current_mode = mode_info.mode
