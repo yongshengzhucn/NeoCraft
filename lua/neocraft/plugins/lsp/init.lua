@@ -121,11 +121,7 @@ return {
       -- inlay hints
       if opts.inlay_hints.enabled then
         NeoCraft.lsp.on_supports_method("textDocument/inlayHint", function(client, buffer)
-          if
-            vim.api.nvim_buf_is_valid(buffer)
-            and vim.bo[buffer].buftype == ""
-            and not vim.tbl_contains(opts.inlay_hints.exclude, vim.bo[buffer].filetype)
-          then
+          if vim.api.nvim_buf_is_valid(buffer) and vim.bo[buffer].buftype == "" and not vim.tbl_contains(opts.inlay_hints.exclude, vim.bo[buffer].filetype) then
             vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
           end
         end)
@@ -184,7 +180,10 @@ return {
             return
           end
         end
-        require("lspconfig")[server].setup(server_opts)
+
+        -- require("lspconfig")[server].setup(server_opts)
+        vim.lsp.config(server, server_opts)
+        vim.lsp.enable(server)
       end
 
       -- get all the servers that are available through mason-lspconfig
@@ -199,24 +198,26 @@ return {
         if server_opts then
           server_opts = server_opts == true and {} or server_opts
           if server_opts.enabled ~= false then
-            -- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
-            if server_opts.mason == false or not vim.tbl_contains(all_mslp_servers, server) then
-              setup(server)
-            else
+            if server_opts.mason ~= false and vim.tbl_contains(all_mslp_servers, server) then
               ensure_installed[#ensure_installed + 1] = server
             end
+            setup(server)
+
+            -- -- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
+            -- if server_opts.mason == false or not vim.tbl_contains(all_mslp_servers, server) then
+            --   setup(server)
+            -- else
+            --   ensure_installed[#ensure_installed + 1] = server
+            -- end
           end
         end
       end
 
       if have_mason then
         mlsp.setup({
-          ensure_installed = vim.tbl_deep_extend(
-            "force",
-            ensure_installed,
-            NeoCraft.opts("mason-lspconfig.nvim").ensure_installed or {}
-          ),
-          handlers = { setup },
+          ensure_installed = vim.tbl_deep_extend("force", ensure_installed, NeoCraft.opts("mason-lspconfig.nvim").ensure_installed or {}),
+          -- handlers = { setup },
+          automatic_enable = true,
         })
       end
 

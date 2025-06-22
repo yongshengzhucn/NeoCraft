@@ -1,6 +1,6 @@
 -- Define colors for different modes (using Catppuccin Mocha palette examples)
 local mode_colors = {
-  n = "#a6adc8", -- Normal mode: Overlay 2
+  n = "#11111b", -- Normal mode: Crust
   i = "#a6e3a1", -- Insert mode: Green
   v = "#f9e2af", -- Visual mode: Yellow
   V = "#f9e2af", -- Visual Line mode: Yellow
@@ -9,7 +9,7 @@ local mode_colors = {
   r = "#f5c2e7", -- Replace mode: Pink
   t = "#94e2d5", -- Terminal mode: Teal
   -- Add other modes if needed (e.g., s, S, R)
-  default = "#a6adc8", -- Default/fallback: Lavender (original color)
+  default = "#11111b", -- Default/fallback: Lavender (original color)
 }
 
 local modified_color = "#f38ba8"
@@ -42,6 +42,9 @@ return {
           },
           padding = 0,
           margin = { horizontal = 0 },
+          options = {
+            winblend = 100, -- 设置透明度，0-100，数值越大越透明
+          },
         },
         render = function(props)
           local buf = props.buf
@@ -100,7 +103,7 @@ return {
 
           table.insert(buffer_render, " ")
 
-          buffer_render.guibg = "#1e1e2e"
+          buffer_render.guibg = "none"
 
           return buffer_render
         end,

@@ -57,9 +57,60 @@ return {
     event = "VeryLazy",
     opts_extend = { "spec" },
     opts = {
-      preset = "helix",
+      preset = "modern",
+      plugins = {
+        marks = true,
+        registers = true,
+        spelling = {
+          enabled = true,
+          suggestions = 30,
+        },
+        presets = {
+          operators = true,
+          motions = true,
+          text_objects = true,
+          windows = true,
+          nav = true,
+          z = true,
+          g = true,
+        },
+      },
+      icons = {
+        group = "",
+        keys = {
+          Space = NeoCraft.config.icons.ui.Rocket,
+        },
+        rules = false, -- enable auto icon rules
+      },
+
+      win = {
+        no_overlap = true,
+        border = "solid",
+        width = 0.8,
+        height = { min = 5, max = 25 },
+        padding = { 1, 2 },
+        title = true,
+        title_pos = "center",
+        zindex = 1000,
+        wo = {
+          winblend = 5,
+        },
+      },
+      layout = {
+        width = { min = 20 },
+        spacing = 6,
+        align = "center",
+      },
+      show_help = false,
+      show_keys = true,
+      triggers = {
+        { "<auto>", mode = "nvisoct" },
+        { "<leader>", mode = { "n", "v" } },
+      },
+
       defaults = {},
       spec = {
+        { ";", desc = " 󰑣 ", mode = { "n", "v" } },
         {
           mode = { "n", "v" },
           { "g", group = "goto" },
@@ -69,12 +120,9 @@ return {
           { "<leader>g", group = "git" },
           { "<leader>gh", group = "hunks" },
           { "<leader>s", group = "search" },
-          { "<leader>u", group = "ui", icon = { icon = "󰙵 ", color = "cyan" } },
-          {
-            "<leader>x",
-            group = "trouble(diagnostics/quickfix)",
-            icon = { icon = "󱖫 ", color = "green" },
-          },
+          { "<leader>u", group = "ui" },
+          { "<leader>t", group = "trouble(diagnostics/quickfix)" },
+          { "<leader>z", group = "copilot" },
           { "[", group = "prev" },
           { "]", group = "next" },
           { "g", group = "goto" },
@@ -130,6 +178,7 @@ return {
         topdelete = { text = "" },
         changedelete = { text = "▎" },
       },
+      preview_config = { border = "rounded", style = "minimal", relative = "cursor", row = 0, col = 1 },
       on_attach = function(buffer)
         local gs = package.loaded.gitsigns
 
@@ -181,12 +230,12 @@ return {
       },
     },
     keys = {
-      { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
-      { "<leader>xX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
-      { "<leader>cs", "<cmd>Trouble symbols toggle<cr>", desc = "Symbols (Trouble)" },
-      { "<leader>cS", "<cmd>Trouble lsp toggle<cr>", desc = "LSP references/definitions/... (Trouble)" },
-      { "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
-      { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
+      { "<leader>tx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Diagnostics (Trouble)" },
+      { "<leader>tX", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", desc = "Buffer Diagnostics (Trouble)" },
+      { "<leader>ts", "<cmd>Trouble symbols toggle<cr>", desc = "Symbols (Trouble)" },
+      { "<leader>tS", "<cmd>Trouble lsp toggle<cr>", desc = "LSP references/definitions/... (Trouble)" },
+      { "<leader>tL", "<cmd>Trouble loclist toggle<cr>", desc = "Location List (Trouble)" },
+      { "<leader>tQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix List (Trouble)" },
       {
         "[q",
         function()
@@ -229,8 +278,8 @@ return {
     keys = {
       { "]t", function() require("todo-comments").jump_next() end, desc = "Next Todo Comment" },
       { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous Todo Comment" },
-      { "<leader>xt", "<cmd>Trouble todo toggle<cr>", desc = "Todo (Trouble)" },
-      { "<leader>xT", "<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
+      { "<leader>tt", "<cmd>Trouble todo toggle<cr>", desc = "Todo (Trouble)" },
+      { "<leader>tT", "<cmd>Trouble todo toggle filter = {tag = {TODO,FIX,FIXME}}<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
       { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
       { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
     },

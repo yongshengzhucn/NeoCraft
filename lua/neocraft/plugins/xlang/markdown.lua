@@ -80,7 +80,7 @@ return {
     "MeanderingProgrammer/render-markdown.nvim",
     opts_extend = { "file_types" },
     opts = {
-      file_types = { "markdown", "norg", "rmd", "org", "codecompanion" },
+      file_types = { "markdown", "norg", "rmd", "org", "codecompanion", "copilot-chat" },
       code = {
         sign = false,
         width = "block",
@@ -88,7 +88,7 @@ return {
       },
       heading = {
         sign = false,
-        icons = { "󰼏 ", "󰼐 ", "󰼑 ", "󰼒 ", "󰼓 ", "󰼔 " },
+        icons = { "󰉫 ", "󰉬 ", "󰉭 ", "󰉮 ", "󰉯 ", "󰉰 " },
       },
       checkbox = {
         enabled = false,

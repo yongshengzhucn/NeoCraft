@@ -27,8 +27,9 @@ map("v", "<A-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<cr>gv=gv", {
 -- buffers
 map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
 map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
-map("n", "<Space>b", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
-map("n", "bd", function() Snacks.bufdelete() end, { desc = "Delete buffer" }) map("n", "bo", function() Snacks.bufdelete.other() end, { desc = "Delete Other Buffers" })
+map("n", "<Space>,", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
+map("n", "bd", function() Snacks.bufdelete() end, { desc = "Delete buffer" }) 
+map("n", "bo", function() Snacks.bufdelete.other() end, { desc = "Delete Other Buffers" })
 
 -- Clear search and stop snippet on escape
 map({ "i", "n", "s" }, "<esc>", function() vim.cmd("noh") NeoCraft.cmp.actions.snippet_stop() return "<esc>" end, { expr = true, desc = "Escape and Clear hlsearch" })
@@ -50,7 +51,7 @@ map("v", "<", "<gv")
 map("v", ">", ">gv")
 
 -- quickfix and diagnostics
-map("n", "<leader>xd", function() vim.diagnostic.open_float(nil, { focusable = false, border = "rounded", }) end, { desc = "Line Diagnostics" })
+map("n", "<leader>td", function() vim.diagnostic.open_float(nil, { focusable = false, border = "rounded", }) end, { desc = "Line Diagnostics" })
 
 -- windows
 map("n", "wd", "<C-W>c", { desc = "Delete Window", remap = true })
@@ -107,14 +108,14 @@ map("n", "<space>l", function()
 end, { desc = "Lua cmdline" })
 
 -- manual formatting
-map({ "n", "v" }, "<space>f", "<cmd>LazyFormat<cr>", { desc = "Format selection or buffer" })
+map({ "n", "v" }, "<space>x", "<cmd>LazyFormat<cr>", { desc = "Format selection or buffer" })
 
 -- browse url
 map("n", "<space>o", function() NeoCraft.browse.open() end, { desc = "Open url under cursor" })
 
 -- toggle
 Snacks.toggle.profiler():map("<leader>up")
-map("n", "<leader>uw", function() NeoCraft.ui.show_visible_window_buffer_info() end, { desc = "Show visible window buffers" })
+map("n", "<leader>ux", function() NeoCraft.ui.display_window_buffer_info() end, { desc = "Display window buffer info" })
 -- toggle lsp inlay hints
 if vim.lsp.inlay_hint then Snacks.toggle.inlay_hints():map("<leader>uh") end
 NeoCraft.format.snacks_toggle(true):map("<leader>uf")
@@ -125,8 +126,8 @@ NeoCraft.format.snacks_toggle(true):map("<leader>uf")
 map("n", "<space>y", "^y$", { desc = "Yank to end of line" })
 
 -- commenting
-map("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })
-map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
+map("n", "gcu", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })
+map("n", "gcd", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
 
 
 -- floating terminal
@@ -137,7 +138,7 @@ map("n", "<c-/>",      function() Snacks.terminal(nil, { cwd = NeoCraft.root.buf
 map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 
 -- copy current file name
-map("n", "<space>x", function ()
+map("n", "<space>n", function ()
   local filename = vim.fn.expand('%:t')
   vim.fn.system('echo -n ' .. filename .. ' | pbcopy')
 end, { desc = "Copy Current File Name" })

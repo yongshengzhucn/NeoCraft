@@ -24,7 +24,7 @@ return {
     ---@type blink.cmp.Config
     opts = {
       snippets = {
-        expand = function(snippet, _)
+        expand = function(snippet)
           return NeoCraft.cmp.expand(snippet)
         end,
       },
@@ -63,7 +63,7 @@ return {
           },
         },
         ghost_text = {
-          enabled = vim.g.ai_cmp,
+          enabled = false,
         },
         list = {
           selection = {
@@ -103,11 +103,7 @@ return {
       -- setup compat sources
       local enabled = opts.sources.default
       for _, source in ipairs(opts.sources.compat or {}) do
-        opts.sources.providers[source] = vim.tbl_deep_extend(
-          "force",
-          { name = source, module = "blink.compat.source" },
-          opts.sources.providers[source] or {}
-        )
+        opts.sources.providers[source] = vim.tbl_deep_extend("force", { name = source, module = "blink.compat.source" }, opts.sources.providers[source] or {})
         if type(enabled) == "table" and not vim.tbl_contains(enabled, source) then
           table.insert(enabled, source)
         end
@@ -170,8 +166,7 @@ return {
     "saghen/blink.cmp",
     opts = function(_, opts)
       opts.appearance = opts.appearance or {}
-      opts.appearance.kind_icons =
-        vim.tbl_extend("force", opts.appearance.kind_icons or {}, NeoCraft.config.icons.kinds)
+      opts.appearance.kind_icons = vim.tbl_extend("force", opts.appearance.kind_icons or {}, NeoCraft.config.icons.kinds)
     end,
   },
 

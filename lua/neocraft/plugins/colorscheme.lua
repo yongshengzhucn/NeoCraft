@@ -61,6 +61,8 @@ return {
           SnacksPickerList = { bg = colors.base },
           SnacksPickerListBorder = { fg = colors.base, bg = colors.base },
           SnacksPickerBoxBorder = { fg = colors.mauve, bg = colors.base },
+          -- snacks scratch
+          SnacksScratchTitle = { fg = colors.base, bg = colors.peach },
           -- CursorMoved url
           HighlightCursorUrl = { bg = colors.none, fg = colors.red },
           -- TreesitterContext
@@ -80,9 +82,11 @@ return {
           BlinkCmpScrollBarThumb = { bg = colors.mauve },
           BlinkCmpMenuSelection = { bg = colors.surface0 },
           -- which_key
-          WhichKey = { fg = colors.subtext0, bg = colors.base },
-          WhichKeyNormal = { fg = colors.mauve, bg = colors.base },
-          WhichKeyTitle = { fg = colors.mauve },
+          WhichKey = { fg = colors.subtext1, bg = colors.mantle },
+          WhichKeyNormal = { fg = colors.mauve, bg = colors.mantle },
+          WhichKeyTitle = { fg = colors.base, bg = colors.red },
+          WhichKeyBorder = { fg = colors.mantle, bg = colors.mantle },
+
           -- avante
           AvanteInlineHint = { fg = colors.teal },
           AvanteSidebar = { bg = colors.mantle },
@@ -96,6 +100,9 @@ return {
           -- edgy
           EdgyNormal = { bg = colors.mantle, fg = colors.subtext0 },
           EdgyTitle = { bold = true, cterm = { bold = true }, fg = colors.base, bg = colors.mauve },
+
+          -- copilot
+          CopilotChatHeader = { fg = colors.rosewater },
 
           -- codecompanion
           CodeCompanionChatHeader = { fg = colors.yellow },

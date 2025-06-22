@@ -92,7 +92,7 @@ return {
     },
     -- stylua: ignore
     keys = {
-      { "<space>n", function() require("noice").cmd("history") end, desc = "Noice History" },
+      { "<space>h", function() require("noice").cmd("history") end, desc = "Noice History" },
       { "<leader>n", "", desc = "+noice"},
       { "<S-Enter>", function() require("noice").redirect(vim.fn.getcmdline()) end, mode = "c", desc = "Redirect Cmdline" },
       { "<leader>nl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
@@ -119,12 +119,21 @@ return {
     "echasnovski/mini.icons",
     lazy = true,
     opts = {
+      default = {
+        directory = { glyph = "", hl = "MiniIconsBlue" },
+      },
+      directory = {
+        ["lua"] = { glyph = "", hl = "MiniIconsBlue" },
+        ["lang"] = { glyph = "", hl = "MiniIconsRed" },
+        ["nvim"] = { glyph = "󱏓", hl = "MiniIconsGreen" },
+      },
       file = {
         [".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
         ["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
       },
       filetype = {
         dotenv = { glyph = "", hl = "MiniIconsYellow" },
+        lua = { glyph = "" },
       },
     },
     init = function()
@@ -145,6 +154,62 @@ return {
       input = { enabled = true },
       notifier = { enabled = true },
       scope = { enabled = true },
+      scratch = {
+        enabled = true,
+        name = "SCRATCH",
+        ft = function()
+          if vim.bo.buftype == "" and vim.bo.filetype ~= "" then
+            return vim.bo.filetype
+          end
+          return "markdown"
+        end,
+        icon = nil,
+        root = vim.fn.stdpath("data") .. "/scratch",
+        autowrite = true,
+        filekey = {
+          cwd = true,
+          branch = true,
+          count = true,
+        },
+        win = {
+          width = 0.9,
+          height = 0.9,
+          bo = { buftype = "", buflisted = false, bufhidden = "hide", swapfile = false },
+          minimal = false,
+          noautocmd = false,
+          zindex = 20,
+          wo = { winhighlight = "NormalFloat:Normal" },
+          border = "solid",
+          title_pos = "center",
+          footer_pos = "center",
+
+          keys = {
+            ["execute"] = {
+              "<cr>",
+              function(_)
+                vim.cmd("%SnipRun")
+              end,
+              desc = "Execute buffer",
+              mode = { "n", "x" },
+            },
+          },
+        },
+        win_by_ft = {
+          lua = {
+            keys = {
+              ["source"] = {
+                "<leader>cr",
+                function(self)
+                  local name = "scratch." .. vim.fn.fnamemodify(vim.api.nvim_buf_get_name(self.buf), ":e")
+                  Snacks.debug.run({ buf = self.buf, name = name })
+                end,
+                desc = "Source buffer",
+                mode = { "n", "x" },
+              },
+            },
+          },
+        },
+      },
       scroll = { enabled = true },
       statuscolumn = { enabled = false }, -- we set this in options.lua
       toggle = { map = NeoCraft.safe_keymap_set },
@@ -166,8 +231,8 @@ return {
         terminal = {
           position = "float",
           relative = "editor",
-          width = 0.8,
-          height = 0.8,
+          width = 0.9,
+          height = 0.9,
           border = "solid",
           title = "  Terminal ",
           title_pos = "center",

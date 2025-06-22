@@ -3,8 +3,8 @@ return {
     "folke/which-key.nvim",
     opts = {
       spec = {
-        { "<BS>", desc = "Decrement Selection", mode = "x" },
-        { "<c-space>", desc = "Increment Selection", mode = { "x", "n" } },
+        { "<bs>", desc = "Decrement Selection", mode = "x" },
+        { "<m-i>", desc = "Increment Selection", mode = { "x", "n" } },
       },
     },
   },
@@ -29,7 +29,7 @@ return {
     end,
     cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
     keys = {
-      { "<c-space>", desc = "Increment Selection" },
+      { "<m-i>", desc = "Increment Selection" },
       { "<bs>", desc = "Decrement Selection", mode = "x" },
     },
     opts_extend = { "ensure_installed" },
@@ -67,8 +67,8 @@ return {
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = "<C-space>",
-          node_incremental = "<C-space>",
+          init_selection = "<m-i>",
+          node_incremental = "<m-i>",
           scope_incremental = false,
           node_decremental = "<bs>",
         },

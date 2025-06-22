@@ -30,6 +30,7 @@ return {
 
         right = {
           { title = " Grug Far  ", ft = "grug-far", size = { width = 0.4 } },
+          { title = " Copilot Chat ", ft = "copilot-chat", size = { width = 0.4 } },
         },
 
         keys = {

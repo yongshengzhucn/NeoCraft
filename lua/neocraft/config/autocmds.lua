@@ -231,3 +231,32 @@ vim.api.nvim_create_autocmd({ "WinEnter", "WinClosed", "BufWinEnter" }, {
   callback = update_laststatus_for_avante_sidebar,
   desc = "Update laststatus on window/buffer changes",
 })
+
+-- oil
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {
+    "PlenaryTestPopup",
+    "checkhealth",
+    "dbout",
+    "gitsigns-blame",
+    "grug-far",
+    "help",
+    "lspinfo",
+    "neotest-output",
+    "neotest-output-panel",
+    "neotest-summary",
+    "notify",
+    "qf",
+    "spectre_panel",
+    "startuptime",
+    "tsplayground",
+    "copilot-chat",
+    "noice",
+  },
+  callback = function()
+    -- 在这些filetype中禁用-快捷键
+    vim.keymap.set("n", "-", "<Nop>", { buffer = true })
+    -- 或者映射到其他功能，比如原始的-功能
+    -- vim.keymap.set("n", "-", "-", { buffer = true })
+  end,
+})
